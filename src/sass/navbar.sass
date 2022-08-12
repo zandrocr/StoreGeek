@@ -1,0 +1,127 @@
+@import 'import'
+//logo style
+[data-logo='div']
+    position: fixed
+    left: 2vh
+    top: 1vh
+    width: 25vh
+
+[data-logo]
+    margin: 0
+    transition: 1s
+    cursor: pointer
+    color: $red
+    background: $white
+    border: 1px solid $red
+    border-radius: 0vh 25vh 5vh 30vh
+
+[data-logo='viewport']
+    color: $white
+    border: 1px solid $white
+    background: $red
+
+//navbar open style
+[data-navbar]
+    position: fixed
+    z-index: 90
+    height: 100vh
+    width: 10vh
+    top: 0vh
+    right: 0vh
+    transition: .5s
+    background: $orange
+    box-shadow: 0px 0px 10px
+
+[data-navbar='open']
+    width: 30vh
+    border-left: 3px solid $blue
+    border-radius: 10vh 0vh 0vh 10vh
+
+[data-nav]
+    height: 90vh
+    margin: 0
+    padding: 0
+
+    [data-link]
+        color: $black
+        transition: .5s
+        height: 6vh
+        &:hover img
+            border-radius: 2vh 0 3vh 0
+            background: $blue
+
+    [data-link='one']
+        &:hover
+            color: $white
+            border-radius: 10vh 0
+            background: $blue
+        &:hover img
+            background: none
+            border-radius: 0
+            padding: .2vh
+        img
+            margin-right: 10vh
+
+    [data-title]
+        position: absolute
+        left: 15vh
+
+    img
+        transition: .5s
+        padding: 1vh
+        width: 6vh
+
+//style button
+[data-button]
+    cursor: pointer
+    background: $orange
+    border-radius: 15vh
+    transition: .3s
+    z-index: 100
+    height: 7vh
+    width: 7vh
+    right: 2vh
+    top: 2vh
+
+[data-button='open']
+    background: $red
+
+[data-line]
+    border-radius: 5vh
+    margin: .6vh
+    width: 5vh
+    height: 1vh
+    background: $white
+    transition: .5s
+    position: absolute
+
+[data-line='one']
+    transition: .5s
+    transform: rotate(-40deg)
+
+[data-line='two']
+    transition: .5s
+    transform: rotate(40deg)
+
+@media screen and ( max-width: 767px )
+    [data-navbar]
+        transition: 1s
+        left: -80vh
+        height: 98vh
+        background: $orange
+        border: none
+        border-right: solid 2px $blue
+        border-radius: 0vh 15vh 15vh 5vh
+
+    [data-navbar='open']
+        left: 0vh
+        top: 1vh
+
+    [data-logo]
+        top: 2vh
+        background: $white
+        border-radius: 0vh 25vh 5vh 30vh
+
+    [data-button]
+        right: 1vh
+        position: fixed
