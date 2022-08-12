@@ -1,92 +1,113 @@
 //firestore
 import { db, storage } from "../api/api"
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 //components
 import Input from "./input"
 //hoos
 import { async } from "@firebase/util"
 import { useState } from "react"
-import { addDoc, collection } from "firebase/firestore/lite"
+import { addDoc, collection, serverTimestamp } from "firebase/firestore/lite"
 
 const NewProduct = () => {
-	const allInputs = { imgUrl: "" }
-	const [newImage, setImage] = useState("") //null
-	const [imageUrl, setImageUrl] = useState(allInputs)
-
-	const [newProduct, setNewProduct] = useState("")
-	const [newValue, setNewValue] = useState(0)
-
+	//input name and value imga
+	const [name, setName] = useState("")
+	const [price, setPrice] = useState(0)
+	//reservation data
+	let [data, setData] = useState({})
+	const [newImage, setImage] = useState(null)
+	//error handling
+	const [erro, setErro] = useState(null)
+	const types = ["image/png", "image/jpeg"]
+	//product collection
 	const productCollectionRef = collection(db, "product")
 
-	function handleChange(e) {
-		if (e.target.files[0]) {
-			setImage(e.target.files[0])
+	const handleAdd = async (e) => {
+		e.preventDefault()
+		try {
+			await addDoc(collection(db, "product"), {
+				name: name,
+				value: price,
+				image: data,
+				timeStamp: serverTimestamp(),
+			})
+		} catch (err) {
+			console.log(err)
 		}
 	}
 
-	function handleImage(e) {
+	const uploadForm = async (e) => {
 		e.preventDefault()
-		console.log("satrt upload")
-		if (image === "") {
-			console.error(`not an image, the image file is a ${typeof image}`)
-		}
-		const uploadTask = storage.ref(`/images/${image.name}`).put(image)
-		uploadTask.on(
-			"state_changed",
-			(snapShot) => {
-				console.log(snapShot)
-			},
-			(err) => {
-				console.log(err)
-			},
-			() => {
-				storage
-					.ref("images")
-					.child(image.name)
-					.getDownloadURL()
-					.then((fireBaseUrl) => {
-						setImageUrl((prevObject) => ({ ...prevObject, imgUrl: fireBaseUrl }))
-					})
-			}
-		)
-	}
-
-	const createProduct = async (e) => {
-		e.preventDefault()
-		if (newProduct === "" || newValue === 0) {
+		const storageRef = ref(storage, `/images/${newImage.name}`)
+		const uploadTask = uploadBytesResumable(storageRef, newImage)
+		if (name === "" || price === 0) {
 			console.error(
-				`not an data, the product file is a ${typeof newProduct}, the image file is a ${typeof newValue}`
+				`not an data, the product file is a ${typeof name}, the image file is a ${typeof price}`
 			)
 		} else {
+			uploadTask.on(
+				"state_changed",
+				(snapshot) => {
+					const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+					console.log("Upload is " + progress + "% done")
+					switch (snapshot.state) {
+						case "paused":
+							console.log("Upload is paused")
+							break
+						case "running":
+							console.log("Upload is running")
+							break
+					}
+				},
+				(err) => {
+					console.log(err)
+				},
+				() => {
+					getDownloadURL(uploadTask.snapshot.ref).then((downloadURL) => {
+						console.log("File available at", downloadURL)
+						setData(downloadURL)
+						console.log(data)
+					})
+				}
+			)
 			await addDoc(productCollectionRef, {
-				image: newImage,
-				name: newProduct,
-				value: newValue,
+				image: data,
+				name: name,
+				value: price,
 			})
 		}
 	}
 
+	function handleImage(e) {
+		let img = e.target.files[0]
+		if (img && types.includes(img.type)) {
+			setImage(img)
+			setErro("")
+		} else {
+			setImage(null)
+			setErro("Please select an image file (png or jpeg)")
+		}
+	}
+
 	return (
-		<form className="col-10 d-flex flex-column" onSubmit={createProduct}>
+		<form className="col-10 d-flex flex-column" onSubmit={handleAdd}>
 			<Input htmfor="image" title={"Imagem do Produto"} type="file" change={handleImage} />
+			{erro && <div>{erro}</div>}
+			{newImage && <div>{newImage.name}</div>}
 			<Input
 				htmfor="product"
 				title={"Nome do Produto"}
 				type="text"
 				place={"Digite o nome do produto"}
-				change={(e) => {
-					setNewProduct(e.target.value)
-				}}
+				change={(e) => setName(e.target.value)}
 			/>
 			<Input
 				htmfor="value"
 				title={"Valor do Produto"}
 				type="number"
 				place={"Digite o valor do produto"}
-				change={(e) => {
-					setNewValue(e.target.value)
-				}}
+				change={(e) => setPrice(e.target.value)}
 			/>
-			<button>Novo Produto</button>
+			<button type="submit">Novo Produto</button>
 		</form>
 	)
 }

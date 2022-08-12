@@ -42,6 +42,7 @@ const Painting = () => {
 				{product.map((pro) => {
 					return (
 						<section key={pro.id} className="d-felx col-6 justify-content-around">
+							<img className="col-4" src={pro.image} alt="image" />
 							<h3>{pro.name}</h3>
 							<h5>R$ {pro.value}</h5>
 							<button

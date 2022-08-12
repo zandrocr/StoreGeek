@@ -1,6 +1,6 @@
 import "../css/input.css"
 
-const Input = ({ htmfor, title, type, place, change, value }) => {
+const Input = ({ id, htmfor, title, type, place, change, value }) => {
 	return (
 		<div>
 			<label htmlFor={htmfor} className="label d-flex flex-column align-item">
@@ -9,7 +9,7 @@ const Input = ({ htmfor, title, type, place, change, value }) => {
 					className="input"
 					autoComplete="off"
 					type={type}
-					id={htmfor}
+					id={id}
 					placeholder={place}
 					onChange={change}
 					value={value}
