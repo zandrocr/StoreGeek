@@ -1,15 +1,15 @@
 //css
-import "../css/painting.css"
+import "../css/configProduct.css"
 //hooks
 import { useState, useEffect } from "react"
 import { db } from "../api/api"
-import { collection, deleteDoc, doc, getDocs, setDoc } from "firebase/firestore/lite"
+import { collection, deleteDoc, doc, getDocs } from "firebase/firestore/lite"
 import { async } from "@firebase/util"
 //componests
 import NewProduct from "../components/newProduct"
 import SetProduct from "../components/setProduct"
 
-const Painting = () => {
+const ConfigProduct = () => {
 	const collectionRef = collection(db, "product")
 	const [product, setProduct] = useState([])
 	const [click, setClik] = useState(false)
@@ -36,7 +36,7 @@ const Painting = () => {
 	}
 
 	return (
-		<section data-painting className="col-12 d-flex flex-column align-items-center ">
+		<section data-form className="col-12 d-flex flex-column align-items-center ">
 			<NewProduct />
 			<div className="col-10 d-flex flex-wrap">
 				{product.map((pro) => {
@@ -67,4 +67,4 @@ const Painting = () => {
 	)
 }
 
-export default Painting
+export default ConfigProduct

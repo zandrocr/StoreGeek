@@ -3,16 +3,16 @@ import 'bootstrap/dist/css/bootstrap.min.css'
 import './css/app.css'
 //import hooks
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import React, { useState, useEffect } from 'react'
 //import components
 import Navbar from './components/navbar'
 //import pages
 import Home from './pages/home'
-import Painting from './pages/painting'
+import Painting from './pages/configProduct'
 import Mug from './pages/shirt'
 import Funko from './pages/shirt'
 import Cushion from './pages/shirt'
 import Shirt from './pages/shirt'
+import ConfigProduct from './pages/ConfigProduct'
 //firebase
 
 function App() {
@@ -27,6 +27,7 @@ function App() {
                     <Route path="/funko" element={<Funko />} />
                     <Route path="/cushion" element={<Cushion />} />
                     <Route path="/shirt" element={<Shirt />} />
+                    <Route path="/newProduct" element={<ConfigProduct />} />
                 </Routes>
                 <Navbar />
             </BrowserRouter>

@@ -7,8 +7,12 @@ import Input from "./input"
 import { async } from "@firebase/util"
 import { useState } from "react"
 import { addDoc, collection, serverTimestamp } from "firebase/firestore/lite"
+//css
+import "../css/newProduct.css"
 
 const NewProduct = () => {
+	//modal
+	let [modal, setModal] = useState(false)
 	//input name and value imga
 	const [name, setName] = useState("")
 	const [price, setPrice] = useState(0)
@@ -21,13 +25,20 @@ const NewProduct = () => {
 	//product collection
 	const productCollectionRef = collection(db, "product")
 
+	function openModal() {
+		setModal(!modal)
+	}
+
+	function closeModal() {
+		setModal(false)
+	}
+
 	const handleAdd = async (e) => {
-		e.preventDefault()
 		try {
 			await addDoc(collection(db, "product"), {
+				image: data,
 				name: name,
 				value: price,
-				image: data,
 				timeStamp: serverTimestamp(),
 			})
 		} catch (err) {
@@ -89,26 +100,46 @@ const NewProduct = () => {
 	}
 
 	return (
-		<form className="col-10 d-flex flex-column" onSubmit={handleAdd}>
-			<Input htmfor="image" title={"Imagem do Produto"} type="file" change={handleImage} />
-			{erro && <div>{erro}</div>}
-			{newImage && <div>{newImage.name}</div>}
-			<Input
-				htmfor="product"
-				title={"Nome do Produto"}
-				type="text"
-				place={"Digite o nome do produto"}
-				change={(e) => setName(e.target.value)}
-			/>
-			<Input
-				htmfor="value"
-				title={"Valor do Produto"}
-				type="number"
-				place={"Digite o valor do produto"}
-				change={(e) => setPrice(e.target.value)}
-			/>
-			<button type="submit">Novo Produto</button>
-		</form>
+		<div data-newproduct className="col-12 d-flex flex-column align-items-center">
+			<button data-buttonproduct="open" className="col-3 button" onClick={openModal}>
+				Novo Produto
+			</button>
+			<form
+				data-formproduct={modal == true ? "open" : ""}
+				className="col-12 flex-column justify-content-around align-items-center"
+				onSubmit={handleAdd}>
+				<button data-buttonproduct type="button" className="col-1 button" onClick={closeModal}>
+					X
+				</button>
+				<div className="col-10">
+					<Input
+						htmfor="image"
+						title={"Imagem do Produto"}
+						type="file"
+						onChange={handleImage}
+					/>
+					{erro && <div>{erro}</div>}
+					{newImage && <div>{newImage.name}</div>}
+					<Input
+						htmfor="product"
+						title={"Nome do Produto"}
+						type="text"
+						placeholder={"Digite o nome do produto"}
+						onChange={(e) => setName(e.target.value)}
+					/>
+					<Input
+						htmfor="value"
+						title={"Valor do Produto"}
+						type="number"
+						placeholder={"Digite o valor do produto"}
+						onChange={(e) => setPrice(e.target.value)}
+					/>
+				</div>
+				<button data-buttonproduct className="col-4">
+					Cadastrar
+				</button>
+			</form>
+		</div>
 	)
 }
 

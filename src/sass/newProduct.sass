@@ -1,0 +1,29 @@
+@import 'import'
+
+[data-newproduct]
+    [data-buttonproduct]
+        background: $blue
+        color: $white
+        font-size: 17px
+        height: 5vh
+        border-radius: 0vh 5vh
+        transition: .5s
+        &:hover
+            background: $red
+
+    [data-buttonproduct='open']
+        margin-top: 15vh
+
+    [data-formproduct]
+        z-index: 10
+        display: flex
+        position: fixed
+        top: -100vh
+        background: $black
+        height: 100vh
+        transition: .5s
+
+    [data-formproduct='open']
+        top: 0vh
+
+
