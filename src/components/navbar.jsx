@@ -1,97 +1,100 @@
-//import hooks
-import { useState } from "react"
+//css
+import "../css/Navbar.css"
+//hook
 import { Link } from "react-router-dom"
-//imports css
-import "../css/navbar.css"
-//import img
-import coffe from "../img/iconNavbar/mug.png"
-import cushion from "../img/iconNavbar/cushion.png"
-import funko from "../img/iconNavbar/funko.png"
-import painting from "../img/iconNavbar/painting.png"
-import tshirt from "../img/iconNavbar/shirt.png"
-//components
-import Searche from "./searchBar"
+import { useState } from "react"
+//img
+import Painting from "../img/painting.png"
+import Mug from "../img/mug.png"
+import Funko from "../img/funko.png"
+import Cushion from "../img/cushion.png"
+import Shirt from "../img/shirt.png"
 
 const Navbar = () => {
-	let [click, setClick] = useState(false)
+	const [click, setClick] = useState(false)
+	let openO = click == true ? "openO" : false
+	let openT = click == true ? "openT" : false
+
 	function handleOpen() {
 		setClick(!click)
 	}
+
 	function handleClose() {
 		setClick(false)
 	}
 
-	//scroll view
-	const [nav, setNav] = useState(false)
+	const [view, setView] = useState(false)
 	function changeBackground() {
 		if (window.scrollY >= 200) {
-			setNav(true)
-		} else setNav(false)
+			setView(true)
+		} else setView(false)
 	}
+
 	window.addEventListener("scroll", changeBackground)
 
+	let viw = view == true ? "openO" : false
+	let viwT = view == true ? "openT" : "offT"
+
 	return (
-		<div>
-			<Searche click={click} />
-			<nav
-				data-navbar={click == true ? "open" : ""}
-				className={
-					"text-center d-flex flex-column align-items-center justify-content-around"
-				}>
-				<Link to="/" data-logo="div" onClick={handleClose}>
-					<h1 data-logo={nav ? "viewport" : ""}>AniFun</h1>
+		<div data-navbar>
+			<div data-row={viw} className="col-12">
+				<Link to="/" data-logo className="d-flex align-items-center">
+					<h2 data-text={viw}>Ani</h2>
+					<h2 data-text={viwT}>Fun</h2>
 				</Link>
+			</div>
+
+			<nav
+				data-nav={openO}
+				className="d-flex flex-column justify-content-around align-items-center">
 				<div
-					data-button={click == true ? "open" : ""}
+					data-button={openO}
 					className="d-flex flex-column align-items-center justify-content-center"
 					onClick={handleOpen}>
-					<div data-line={click == true ? "one" : ""}></div>
-					<div data-line={click == true ? "two" : ""}></div>
+					<div data-line={openO}></div>
+					<div data-line={openT}></div>
 				</div>
-				<section
-					data-nav
-					className="d-flex flex-column align-items-center justify-content-around">
-					<Link
-						data-link={click == true ? "open" : ""}
-						to="/painting"
-						className="d-flex align-items-center"
-						onClick={handleClose}>
-						<img src={painting} alt="quandros geeks" />
-						<h6 data-title={click == true ? "open" : ""}>Quadro</h6>
-					</Link>
-					<Link
-						data-link={click == true ? "open" : ""}
-						to="/shirt"
-						className="d-flex align-items-center "
-						onClick={handleClose}>
-						<img src={coffe} alt="canecas geeks" />
-						<h6 data-title={click == true ? "open" : ""}>Canecas</h6>
-					</Link>
-					<Link
-						data-link={click == true ? "open" : ""}
-						to="/funkos"
-						className="d-flex align-items-center "
-						onClick={handleClose}>
-						<img src={funko} alt="funkos" />
-						<h6 data-title={click == true ? "open" : ""}>Funkos</h6>
-					</Link>
-					<Link
-						data-link={click == true ? "open" : ""}
-						to="/almofa"
-						className="d-flex align-items-center "
-						onClick={handleClose}>
-						<img src={cushion} alt="almofada geeks" />
-						<h6 data-title={click == true ? "open" : ""}>Almofada</h6>
-					</Link>
-					<Link
-						data-link={click == true ? "open" : ""}
-						to="/shirt"
-						className="d-flex align-items-center "
-						onClick={handleClose}>
-						<img src={tshirt} alt="camisas geeks" />
-						<h6 data-title={click == true ? "open" : ""}>Camisas</h6>
-					</Link>
-				</section>
+
+				<Link
+					to="/painting"
+					data-link={openO}
+					className="d-flex align-items-center justify-content-center"
+					onClick={handleClose}>
+					<img src={Painting} alt="Painting" />
+					<h6>Quadro</h6>
+				</Link>
+				<Link
+					to="/mug"
+					data-link={openO}
+					className="d-flex align-items-center justify-content-center"
+					onClick={handleClose}>
+					<img src={Mug} alt="Mug" />
+					<h6>Caneca</h6>
+				</Link>
+				<Link
+					to="/funko"
+					data-link={openO}
+					className="d-flex align-items-center justify-content-center"
+					onClick={handleClose}>
+					<img src={Funko} alt="Funko" />
+					<h6>Funko</h6>
+				</Link>
+				<Link
+					to="/cushion"
+					data-link={openO}
+					className="d-flex align-items-center justify-content-center"
+					onClick={handleClose}>
+					<img src={Cushion} alt="Cushion" />
+					<h6>Almofada</h6>
+				</Link>
+				<Link
+					to="/shirt"
+					data-link={openO}
+					className="d-flex align-items-center justify-content-center"
+					onClick={handleClose}>
+					<img src={Shirt} alt="Shirt" />
+					<h6>Camisa</h6>
+				</Link>
 			</nav>
 		</div>
 	)

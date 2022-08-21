@@ -1,128 +1,108 @@
 @import 'import'
-//logo style
-[data-logo='div']
-    position: fixed
-    left: 2vh
-    top: 1vh
-    width: 25vh
+
+[data-navbar]
+    z-index: 100
+    [data-row]
+        position: fixed
+        top: 0
+        height: 7vh
+        transition: .5s
+    [data-row='openO']
+        box-shadow: 0px 0px 8px $black
+        background: $black
 
 [data-logo]
-    font-family: $rubi
-    margin: 0
-    transition: 1s
-    cursor: pointer
-    color: $white
-    border: 1px solid #ffffff00
-    border-radius: 2vh 5vh
-
-[data-logo='viewport']
-    color: $blue
-    border: 1px solid $white
-    background: $white
-
-//navbar style
-[data-navbar]
     position: fixed
-    z-index: 5
-    height: 100vh
-    width: 10vh
-    top: 0vh
-    right: 0vh
-    transition: .5s
-    background: $orange
-    box-shadow: 0px 0px 10px
+    left: 1vh
+    top: .5vh
 
-[data-navbar='open']
-    width: 30vh
-    border-left: 3px solid $blue
-    border-radius: 10vh 0vh 0vh 10vh
+    [data-text]
+        border-radius: 1vh
+        color: $black
+
+    [data-text='openO']
+        color: $black
+        background: $white
+
+    [data-text='openT']
+        color: $white
+
+    [data-text='offT']
+        color: $white
+        background: $black
+
+[data-button]
+    top: 1vh
+    width: 5vh
+    height: 5vh
+    border-radius: 100%
+    background: $black
+    cursor: pointer
+    transition: .5s
+    [data-line]
+        position: absolute
+        width: 3vh
+        height: 1vh
+        background: $white
+        border-radius: 6vh
+        transition: .5s
+[data-button='openO']
+    // right: 32vh
+    [data-line='openO']
+        transform: rotate(45deg)
+    [data-line='openT']
+        transform: rotate(-45deg)
+
 
 [data-nav]
-    height: 90vh
-    margin: 0
-    padding: 0
-
-    [data-link]
+    position: fixed
+    top: 0
+    right: 0
+    width: 10vh
+    background: $white
+    height: 100vh
+    box-shadow: 0px 0px 8px #000
+    transition: .5s
+    h6
+        margin: 0
+        transition: .5s
         font-family: $silk
         color: $black
-        transition: .5s
-        height: 6vh
-        &:hover img
-            border-radius: 2vh 0 3vh 0
-            background: $blue
-
-    [data-link='open']
-        &:hover
-            color: $white
-            border-radius: 10vh 0
-            background: $blue
-        &:hover img
-            background: none
-            border-radius: 0
-            padding: .2vh
-        img
-            margin-right: 15vh
-
-    [data-title]
         position: absolute
-        left: 12vh
-
+        right: -20vh
+        transition: .5s
     img
         transition: .5s
-        padding: 1vh
         width: 6vh
+        padding: 1vh
+        transition: .3s
+    img:hover
+        padding: .5vh
 
-//style button
-[data-button]
-    cursor: pointer
-    background: $orange
-    border-radius: 15vh
-    transition: .3s
-    z-index: 100
-    height: 7vh
-    width: 7vh
-    right: 2vh
-    top: 2vh
+[data-nav='openO']
+    width: 30vh
+    box-shadow: 0px 0px 20px #000
+    border-radius: 10vh 0 0 10vh
+    h6
+        right: 5vh
+    img
+        margin-right: 15vh
 
-[data-button='open']
-    background: $red
+[data-link]:hover h6
+    background: $black
+    color: $white
+[data-link]:hover img
+    padding: .5vh
 
-[data-line]
-    border-radius: 5vh
-    margin: .6vh
-    width: 5vh
-    height: 1vh
-    background: $white
-    transition: .5s
-    position: absolute
-
-[data-line='one']
-    transition: .5s
-    transform: rotate(-40deg)
-
-[data-line='two']
-    transition: .5s
-    transform: rotate(40deg)
-
-@media screen and ( max-width: 767px )
-    [data-navbar]
-        transition: 1s
-        left: -80vh
-        height: 98vh
-        background: $orange
-        border: none
-        border-right: solid 2px $blue
-        border-radius: 0vh 15vh 15vh 5vh
-
-    [data-navbar='open']
-        left: 0vh
-        top: 1vh
-
-    [data-logo]
-        top: 2vh
-        background: $white
-        border-radius: 0vh 25vh 5vh 30vh
-
+@media screen and ( max-width: 768px )
     [data-button]
-        right: 1vh
         position: fixed
+        top: 7.5vh
+        right: 1vh
+    [data-button='openO']
+        right: 32vh
+
+    [data-nav]
+        right: -10vh
+    [data-nav='openO']
+        right: 0vh
