@@ -25,9 +25,3 @@ const Input = (props) => {
 }
 
 export default Input
-
-//(e) => props.onChange(e.target.value)
-// ? props.onChange
-// : null
-// ? null
-// : (e) => props.onFile(e.target.files[0])

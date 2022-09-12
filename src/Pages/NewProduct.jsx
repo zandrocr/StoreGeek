@@ -1,5 +1,5 @@
 //hooks
-import { useState, useEffect } from "react"
+import { useState } from "react"
 //firestore
 import { storage, collectionRef } from "../api/api"
 import { addDoc, serverTimestamp } from "firebase/firestore/lite"
@@ -10,8 +10,6 @@ import Input from "../Components/input"
 import "../css/newProduct.css"
 import Funko from "../img/file.png"
 import AllProduct from "../Components/AllProduct"
-import { async } from "@firebase/util"
-import { propTypes } from "react-bootstrap/esm/Image"
 import Loading from "../Components/Loading"
 
 const array = [
@@ -26,39 +24,28 @@ const styleInput = "d-flex flex-column col-12 col-lg-5"
 
 const NewProduct = () => {
 	const [file, setFile] = useState("")
-	const [urlFile, setUrlFile] = useState("")
-	// const [name, setName] = useState("")
-	// const [price, setPrice] = useState("")
-	// const [select, setSelect] = useState("")
-	// const [description, setDescription] = useState("")
 	const [loading, setLoading] = useState(false)
-	const [valueInput, setvalueInput] = useState({ timeStamp: serverTimestamp(), file: urlFile })
+	const [valueInput, setvalueInput] = useState({ timeStamp: serverTimestamp() })
 
 	const handleInput = (e) => {
 		const { name, value } = e.target
 		setvalueInput({ ...valueInput, [name]: value })
 	}
 
-	console.log(valueInput)
-
-	const upProduct = async (url) => {
+	const upProduct = async (e) => {
 		try {
-			await addDoc(
-				collectionRef,
-				valueInput
-				// {name: name,
-				// price: price,
-				// file: urlFile,
-				// select: select,
-				// description: description,
-				// timeStamp: serverTimestamp(),}
-			)
+			await addDoc(collectionRef, {
+				file: e,
+				name: valueInput.name,
+				price: valueInput.price,
+				description: valueInput.description,
+				type: valueInput.select,
+			})
 			console.log("Written document")
 		} catch (e) {
 			console.log("Error adding document: ", e)
 		}
 	}
-
 
 	const submitProduct = async (e) => {
 		e.preventDefault()
@@ -86,13 +73,11 @@ const NewProduct = () => {
 			},
 			() => {
 				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-					setUrlFile(url)
+					upProduct(url)
 					console.log("Sent with success")
 					setTimeout(() => {
-						// upProduct()
-						// console.log(valueInput)
-						// window.location.reload()
-					}, 2000)
+						window.location.reload()
+					}, 1000)
 				})
 			}
 		)
@@ -113,9 +98,7 @@ const NewProduct = () => {
 							className="col-12"
 							onChange={(e) => setFile(e.target.files[0])}
 							src={file ? URL.createObjectURL(file) : Funko}
-						/>
-						{/* {!urlFile && <p>shpww</p>}
-						{urlFile && <img src={urlFile} alt="image" />} */}
+							/>
 					</div>
 					<div className={styleInput}>
 						<Input
