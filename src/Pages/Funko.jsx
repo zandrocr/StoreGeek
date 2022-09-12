@@ -1,5 +1,5 @@
 const Funko = () => {
-	return <div>Funko</div>
+	return <div></div>
 }
 
 export default Funko

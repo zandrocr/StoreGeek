@@ -1,5 +1,5 @@
 const Cushion = () => {
-	return <div>Cushion</div>
+	return <div></div>
 }
 
 export default Cushion

@@ -10,6 +10,7 @@ import Mug from "./Pages/Mug"
 import Funko from "./Pages/Funko"
 import Cushion from "./Pages/Cushion"
 import Shirt from "./Pages/Shirt"
+import NewProduct from "./Pages/NewProduct"
 //componet
 import Navbar from "./Components/Navbar"
 
@@ -23,6 +24,7 @@ function App() {
 				<Route path='/funko' element={<Funko />}  />
 				<Route path='/cushion' element={<Cushion />}  />
 				<Route path='/shirt' element={<Shirt />}  />
+				<Route path='/newProduct' element={<NewProduct />}  />
 			</Routes>
 			<Navbar />
 		</BrowserRouter>

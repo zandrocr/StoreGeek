@@ -1,5 +1,5 @@
 const Mug = () => {
-	return <div>Mug</div>
+	return <div></div>
 }
 
 export default Mug

@@ -1,5 +1,5 @@
 const Shirt = () => {
-	return <div>Shirt</div>
+	return <div></div>
 }
 
 export default Shirt

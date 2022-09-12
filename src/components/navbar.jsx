@@ -37,7 +37,7 @@ const Navbar = () => {
 
 	return (
 		<div data-navbar>
-			<div data-row={viw} className="col-12">
+			<div data-row={viw} className="col-12 d-flex align-items-center">
 				<Link to="/" data-logo className="d-flex align-items-center">
 					<h2 data-text={viw}>Ani</h2>
 					<h2 data-text={viwT}>Fun</h2>
