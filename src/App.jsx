@@ -11,6 +11,7 @@ import Funko from "./Pages/Funko"
 import Cushion from "./Pages/Cushion"
 import Shirt from "./Pages/Shirt"
 import NewProduct from "./Pages/NewProduct"
+import Change from "./Components/Change"
 //componet
 import Navbar from "./Components/Navbar"
 
@@ -25,6 +26,7 @@ function App() {
 				<Route path='/cushion' element={<Cushion />}  />
 				<Route path='/shirt' element={<Shirt />}  />
 				<Route path='/newProduct' element={<NewProduct />}  />
+				<Route path='/newProduct/:id' element={<NewProduct />}  />
 			</Routes>
 			<Navbar />
 		</BrowserRouter>

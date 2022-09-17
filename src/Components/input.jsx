@@ -17,7 +17,7 @@ const Input = (props) => {
 			/>
 			<div className="d-flex justify-content-center">
 				{props.src ? (
-					<img id={props.id} src={props.src} className="col-11 col-lg-4" />
+					<img data-image id={props.id} src={props.src} className="" />
 				) : null}
 			</div>
 		</label>

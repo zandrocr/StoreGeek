@@ -8,10 +8,12 @@ import "../css/allProduct.css"
 import "../css/card.css"
 //components
 import Change from "./Change"
+import { Link } from "react-router-dom"
 
 const AllProduct = () => {
 	const [product, setProduct] = useState([])
 	const [modal, setModal] = useState(false)
+	const [id, setId] = useState('')
 
 	useEffect(() => {
 		const getProduct = async () => {
@@ -45,14 +47,15 @@ const AllProduct = () => {
 			})
 	}
 
-	function onModal(){
+	function onModal(e) {
+		setId(e)
 		setModal(!modal)
 	}
 
 	return (
 		<section className="allProduct col-12 d-flex flex-column align-items-center">
 			<p>Produtos</p>
-			<Change modal={modal} setModal={setModal}/>
+			<Change id={id} modal={modal} setModal={setModal} />
 			<div className="cap col-12 d-flex flex-wrap justify-content-cente justify-content-around">
 				{product.map((item) => {
 					return (
@@ -72,7 +75,17 @@ const AllProduct = () => {
 								}}>
 								Deletar
 							</button>
-							<button className="col-9" onClick={onModal}>Editar</button>
+							<Link
+								to={`/newProduct/${item.id}`}
+								className="col-9 d-flex justify-content-center">
+								<button
+									className="col-12"
+									onClick={() => {
+										onModal(item.id)
+									}}>
+									Editar
+								</button>
+							</Link>
 						</div>
 					)
 				})}
