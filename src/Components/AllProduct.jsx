@@ -48,9 +48,10 @@ const AllProduct = () => {
 	}
 
 	function onModal(e) {
-		setId(e)
+		setId(e.id)
 		setModal(!modal)
 	}
+
 
 	return (
 		<section className="allProduct col-12 d-flex flex-column align-items-center">
@@ -81,7 +82,7 @@ const AllProduct = () => {
 								<button
 									className="col-12"
 									onClick={() => {
-										onModal(item.id)
+										onModal({id: item.id})
 									}}>
 									Editar
 								</button>

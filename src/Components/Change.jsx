@@ -22,6 +22,7 @@ import "../css/change.css"
 import Loading from "./Loading"
 import Funko from "../img/file.png"
 import { Link, useParams } from "react-router-dom"
+import { editProduct } from "../api/submitProduct"
 
 const styleInput = "d-flex flex-column col-12 col-lg-5"
 
@@ -35,29 +36,11 @@ const array = [
 
 const Change = (props) => {
 	const [file, setFile] = useState("")
-	const [product, setProduct] = useState([])
 	const [loading, setLoading] = useState(false)
-	const [valueInput, setvalueInput] = useState({ timeStamp: serverTimestamp() })
+	const [editInput, setEditInput] = useState('')
 	//types
 	const types = ["image/png", "image/jpeg"]
 	const [erro, setErro] = useState(null)
-
-	useEffect(() =>{
-		const docRef = doc(collectionRef, 'IOBqOpI2Mkpq2LIZB0Gd')
-
-		const getProduct = async () => {
-			getDoc(docRef)
-			// .then((doc) =>{
-			// 	console.log(doc.data(), doc.id)
-			// 	// console.log('getDoc')
-			// })
-
-			onSnapshot(docRef, (doc) => {
-				console.log(doc.data(), doc.id)
-			})
-		}
-		getProduct()
-	},[])
 
 	const previewImage = (e) => {
 		const img = e.target.files[0]
@@ -70,7 +53,7 @@ const Change = (props) => {
 		}
 	}
 
-	function onModal() {
+	function closeModal() {
 		props.setModal(!props.modal)
 		setFile(null)
 		setErro(null)
@@ -78,58 +61,21 @@ const Change = (props) => {
 
 	const handleInput = (e) => {
 		const { name, value } = e.target
-		setvalueInput({ ...valueInput, [name]: value })
+		setEditInput({ ...editInput, [name]: value })
 	}
 
-	const upProduct = async (e) => {
-		try {
-			await setDoc(doc(db, "product", props.id), {
-				file: e,
-				name: valueInput.setName,
-				price: valueInput.setPrice,
-				description: valueInput.setDescription,
-				type: valueInput.setSelect,
-			})
-			console.log("Written document")
-		} catch (error) {
-			console.log("Error adding document: ", error)
-		}
-	}
-
-	const submitProduct = async (e) => {
+	const editProd = (e) => {
 		e.preventDefault()
-
-		const storageRef = ref(storage, `/images/${file.name}`)
-		const uploadTask = uploadBytesResumable(storageRef, file)
 		setLoading(true)
-
-		uploadTask.on(
-			"state_changed",
-			(snapshot) => {
-				const progress = (snapshot.bytesTransferred / snapshot.totalBytes) * 100
-				console.log("Upload is " + progress + "% done")
-				switch (snapshot.state) {
-					case "paused":
-						console.log("Upload is paused")
-						break
-					case "running":
-						console.log("Upload is running")
-						break
-				}
-			},
-			(error) => {
-				console.log(error)
-			},
-			() => {
-				getDownloadURL(uploadTask.snapshot.ref).then((url) => {
-					upProduct(url)
-					console.log("Sent with success")
-					setTimeout(() => {
-						window.location.reload()
-					}, 1000)
-				})
-			}
-		)
+		editProduct({
+			id: props.id,
+			namefile: file.name,
+			file: file,
+			setName: editInput.setName,
+			setPrice: editInput.setPrice,
+			setDescription: editInput.setDescription,
+			setSelect: editInput.setSelect,
+		})
 	}
 
 	return (
@@ -139,7 +85,7 @@ const Change = (props) => {
 				data-change={props.modal == true ? "" : "close"}
 				//
 				className="col-12 flex-column align-items-center"
-				onSubmit={submitProduct}>
+				onSubmit={editProd}>
 				<div className="inForm col-11 d-flex flex-column flex-lg-row align-items-center flex-sm-wrap justify-content-between">
 					<div className="d-flex flex-column align-items-center col-12">
 						<Input
@@ -156,7 +102,7 @@ const Change = (props) => {
 							id="setName"
 							title="Nome"
 							onChange={handleInput}
-							value={valueInput.setName || ""}
+							value={editInput.setName || ""}
 						/>
 					</div>
 					<div className={styleInput}>
@@ -164,7 +110,7 @@ const Change = (props) => {
 							id="setPrice"
 							title="Valor"
 							onChange={handleInput}
-							value={valueInput.setPrice || ""}
+							value={editInput.setPrice || ""}
 							placeholder="Digite o valor do produto"
 						/>
 					</div>
@@ -173,7 +119,7 @@ const Change = (props) => {
 							id="setDescription"
 							title="Descrição"
 							onChange={handleInput}
-							value={valueInput.setDescription || ""}
+							value={editInput.setDescription || ""}
 							placeholder="Digite sobre do produto"
 						/>
 					</div>
@@ -184,7 +130,7 @@ const Change = (props) => {
 							name="setSelect"
 							data-label
 							onChange={handleInput}
-							value={valueInput.setSelect || ""}>
+							value={editInput.setSelect || ""}>
 							<option hidden>Selecione o produto</option>
 							{array.map((list, index) => {
 								return <option key={index}>{list.type}</option>
@@ -195,7 +141,7 @@ const Change = (props) => {
 				<div className="col-12 d-flex justify-content-around">
 					<button className="col-4 col-lg-2">Atualizar</button>
 					<Link to="/newProduct" className="col-4 col-lg-2">
-						<button type="button" className="col-12" onClick={onModal}>
+						<button type="button" className="col-12" onClick={closeModal}>
 							Cancelar
 						</button>
 					</Link>
