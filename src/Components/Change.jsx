@@ -1,26 +1,10 @@
 //components
 import Input from "./input"
 //hooks
-import { useState, useEffect } from "react"
-//firestore
-import { storage, collectionRef, db } from "../api/api"
-import { getDatabase, set } from "firebase/database"
-import {
-	addDoc,
-	getDocs,
-	serverTimestamp,
-	doc,
-	collection,
-	setDoc,
-	where,
-	query,
-	getDoc,
-} from "firebase/firestore/lite"
-import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
+import { useState } from "react"
 //style
 import "../css/change.css"
 import Loading from "./Loading"
-import Funko from "../img/file.png"
 import { Link } from "react-router-dom"
 import { editProduct } from "../api/submitProduct"
 
@@ -37,7 +21,7 @@ const array = [
 const Change = (props) => {
 	const [file, setFile] = useState("")
 	const [loading, setLoading] = useState(false)
-	const [editInput, setEditInput] = useState('')
+	const [editInput, setEditInput] = useState("")
 	//types
 	const types = ["image/png", "image/jpeg"]
 	const [erro, setErro] = useState(null)
@@ -67,7 +51,7 @@ const Change = (props) => {
 		e.preventDefault()
 		setLoading(true)
 		editProduct({
-			id: props.id,
+			id: props.item.id,
 			namefile: file.name,
 			file: file,
 			setName: editInput.setName,
@@ -76,8 +60,6 @@ const Change = (props) => {
 			setSelect: editInput.setSelect,
 		})
 	}
-
-	console.log(props.item.name)
 
 	return (
 		<section className="col-12 d-flex justify-content-center">
@@ -103,27 +85,29 @@ const Change = (props) => {
 							id="setName"
 							title="Nome"
 							onChange={handleInput}
-							value={editInput.setName || ''}
+							placeholder={props.item.name}
+							value={editInput.setName || ""}
 						/>
 					</div>
 					<div className={styleInput}>
 						<Input
 							id="setPrice"
 							title="Valor"
+							placeholder={props.item.price}
 							onChange={handleInput}
 							value={editInput.setPrice || ""}
-							placeholder="Digite o valor do produto"
 						/>
 					</div>
 					<div className={styleInput}>
 						<Input
 							id="setDescription"
 							title="Descrição"
+							placeholder={props.item.description}
 							onChange={handleInput}
 							value={editInput.setDescription || ""}
-							placeholder="Digite sobre do produto"
 						/>
 					</div>
+					<p>{props.item.select}</p>
 					<label data-input className={styleInput} htmlFor="select">
 						<h4>Tipo</h4>
 						<select
@@ -132,7 +116,7 @@ const Change = (props) => {
 							data-label
 							onChange={handleInput}
 							value={editInput.setSelect || ""}>
-							<option hidden>Selecione o produto</option>
+							<option hidden>{props.item.type m }</option>
 							{array.map((list, index) => {
 								return <option key={index}>{list.type}</option>
 							})}
