@@ -14,6 +14,8 @@ const AllProduct = () => {
 	const [product, setProduct] = useState([])
 	const [modal, setModal] = useState(false)
 	const [id, setId] = useState('')
+	const [file, setFile] = useState('')
+	const [item, setItem] = useState('')
 
 	useEffect(() => {
 		const getProduct = async () => {
@@ -49,6 +51,8 @@ const AllProduct = () => {
 
 	function onModal(e) {
 		setId(e.id)
+		setFile(e.file)
+		setItem(e.item)
 		setModal(!modal)
 	}
 
@@ -56,7 +60,7 @@ const AllProduct = () => {
 	return (
 		<section className="allProduct col-12 d-flex flex-column align-items-center">
 			<p>Produtos</p>
-			<Change id={id} modal={modal} setModal={setModal} />
+			<Change id={id} file={file} item={item} modal={modal} setModal={setModal} />
 			<div className="cap col-12 d-flex flex-wrap justify-content-cente justify-content-around">
 				{product.map((item) => {
 					return (
@@ -82,7 +86,7 @@ const AllProduct = () => {
 								<button
 									className="col-12"
 									onClick={() => {
-										onModal({id: item.id})
+										onModal({id: item.id, file: item.file, item: item})
 									}}>
 									Editar
 								</button>

@@ -21,7 +21,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage"
 import "../css/change.css"
 import Loading from "./Loading"
 import Funko from "../img/file.png"
-import { Link, useParams } from "react-router-dom"
+import { Link } from "react-router-dom"
 import { editProduct } from "../api/submitProduct"
 
 const styleInput = "d-flex flex-column col-12 col-lg-5"
@@ -49,14 +49,13 @@ const Change = (props) => {
 			setFile(img)
 		} else {
 			setFile(null)
-			setErro("message")
+			setErro(true)
 		}
 	}
 
 	function closeModal() {
 		props.setModal(!props.modal)
 		setFile(null)
-		setErro(null)
 	}
 
 	const handleInput = (e) => {
@@ -78,6 +77,8 @@ const Change = (props) => {
 		})
 	}
 
+	console.log(props.item.name)
+
 	return (
 		<section className="col-12 d-flex justify-content-center">
 			{loading == true ? <Loading /> : null}
@@ -94,7 +95,7 @@ const Change = (props) => {
 							type="file"
 							className="col-11"
 							onChange={previewImage}
-							src={file ? URL.createObjectURL(file) : Funko}
+							src={file ? URL.createObjectURL(file) : props.item.file}
 						/>
 					</div>
 					<div className={styleInput}>
@@ -102,7 +103,7 @@ const Change = (props) => {
 							id="setName"
 							title="Nome"
 							onChange={handleInput}
-							value={editInput.setName || ""}
+							value={editInput.setName || ''}
 						/>
 					</div>
 					<div className={styleInput}>

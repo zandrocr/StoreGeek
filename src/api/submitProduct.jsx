@@ -1,7 +1,6 @@
 import { collectionRef, db, storage } from "./api"
 import { addDoc, doc, serverTimestamp, setDoc } from "firebase/firestore/lite"
-import { getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
-
+import { deleteObject, getDownloadURL, ref, uploadBytesResumable } from "firebase/storage"
 
 export const submitProduct = async (props) => {
 	const storageRef = ref(storage, `/images/${props.namefile}`)
@@ -84,10 +83,18 @@ export const editProduct = async (props) => {
 				} catch (error) {
 					console.log("Error adding document: ", error)
 				}
+				deleteObject(ref(storage, props.file))
+					.then(() => {
+						console.log("File deleted successfully")
+						window.location.reload()
+					})
+					.catch((error) => {
+						console.log(`Uh-oh, an ${error} occurred!`)
+					})
 				console.log("Sent with success")
-				// setTimeout(() => {
-				// 	window.location.reload()
-				// }, 1000)
+				setTimeout(() => {
+					window.location.reload()
+				}, 1000)
 			})
 		}
 	)
