@@ -40,6 +40,8 @@ const Change = (props) => {
 	function closeModal() {
 		props.setModal(!props.modal)
 		setFile(null)
+		setEditInput("")
+		setFile("")
 	}
 
 	const handleInput = (e) => {
@@ -54,6 +56,7 @@ const Change = (props) => {
 			id: props.item.id,
 			namefile: file.name,
 			file: file,
+			delFile: props.item.file,
 			setName: editInput.setName,
 			setPrice: editInput.setPrice,
 			setDescription: editInput.setDescription,
@@ -116,7 +119,7 @@ const Change = (props) => {
 							data-label
 							onChange={handleInput}
 							value={editInput.setSelect || ""}>
-							<option hidden>{props.item.type m }</option>
+							<option hidden>{props.item.type}</option>
 							{array.map((list, index) => {
 								return <option key={index}>{list.type}</option>
 							})}

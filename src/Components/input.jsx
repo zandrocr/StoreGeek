@@ -16,9 +16,7 @@ const Input = (props) => {
 				onChange={props.onChange}
 			/>
 			<div className="d-flex justify-content-center">
-				{props.src ? (
-					<img data-image id={props.id} src={props.src} className="" />
-				) : null}
+				{props.src ? <img data-image id={props.id} src={props.src} /> : null}
 			</div>
 		</label>
 	)

@@ -83,13 +83,12 @@ export const editProduct = async (props) => {
 				} catch (error) {
 					console.log("Error adding document: ", error)
 				}
-				deleteObject(ref(storage, props.file))
+				deleteObject(ref(storage, props.delFile))
 					.then(() => {
 						console.log("File deleted successfully")
-						window.location.reload()
 					})
-					.catch((error) => {
-						console.log(`Uh-oh, an ${error} occurred!`)
+					.catch((erro) => {
+						console.log(`Uh-oh, an ${erro} occurred!`)
 					})
 				console.log("Sent with success")
 				setTimeout(() => {

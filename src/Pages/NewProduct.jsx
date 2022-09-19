@@ -9,6 +9,7 @@ import "../css/newProduct.css"
 import Funko from "../img/file.png"
 import AllProduct from "../Components/AllProduct"
 import Loading from "../Components/Loading"
+import { useForm } from "react-hook-form"
 
 const array = [
 	{ type: "Quadro" },
@@ -22,17 +23,23 @@ const styleInput = "d-flex flex-column col-12 col-lg-5"
 
 const NewProduct = () => {
 	const [file, setFile] = useState("")
+	const [input, setInput] = useState({
+		name: "",
+		price: "",
+		description: "",
+		type: "",
+	})
 	const [loading, setLoading] = useState(false)
-	const [valueInput, setvalueInput] = useState('')
-	//types
+	const [erro, setErro] = useState(false)
+
 	const types = ["image/png", "image/jpeg"]
-	const [erro, setErro] = useState(null)
+	const [atent, setAtent] = useState(false)
 
 	const previewImage = (e) => {
 		const img = e.target.files[0]
 		if (img && types.includes(img.type)) {
-			setErro("")
 			setFile(img)
+			setErro(false)
 		} else {
 			setFile(null)
 			setErro(true)
@@ -40,29 +47,40 @@ const NewProduct = () => {
 	}
 
 	const handleInput = (e) => {
-		const { name, value } = e.target
-		setvalueInput({ ...valueInput, [name]: value })
+		let newInput = input
+		newInput[e.target.name] = e.target.value
+		setInput({ ...newInput })
 	}
 
 	const submit = (e) => {
 		e.preventDefault()
-		setLoading(true)
-		submitProduct({
-			namefile: file.name,
-			file: file,
-			name: valueInput.name,
-			price: valueInput.price,
-			description: valueInput.description,
-			type: valueInput.type,
-		})
+		let atents = Object.values(input).some((obj) => obj == "")
+		setAtent(atents)
+
+		if (file == "" || atent == true) {
+			setErro(true)
+		} else {
+			setLoading(true)
+			submitProduct({
+				namefile: file.name,
+				file: file,
+				name: input.name,
+				price: input.price,
+				description: input.description,
+				type: input.type,
+			})
+		}
 	}
 
+	// console.log(valueInput.name)
 	return (
 		<section className="newProduct col-12 d-flex flex-column align-items-center justify-content-center">
 			{loading == true ? <Loading /> : null}
 			<form
 				className="forProduct col-10 d-flex flex-column align-items-center"
-				onSubmit={submit}>
+				onSubmit={(e) => {
+					submit(e)
+				}}>
 				<div className="col-12 d-flex flex-column flex-lg-row align-items-center flex-sm-wrap justify-content-between">
 					<div className="d-flex flex-column align-items-center col-12">
 						<Input
@@ -73,34 +91,49 @@ const NewProduct = () => {
 							onChange={previewImage}
 							src={file ? URL.createObjectURL(file) : Funko}
 						/>
-						{erro == true && <p>asdas</p>}
+						{erro == true && file == "" ? <p>Envie uma imagem png ou jpeg</p> : ""}
 					</div>
 					<div className={styleInput}>
 						<Input
 							id="name"
 							title="Nome"
 							onChange={handleInput}
-							value={valueInput.name || ""}
+							value={input.name || ""}
 							placeholder="Digite o nome do produto"
 						/>
+						{atent == true && input.name == "" ? (
+							<span>Digite o nome do produto</span>
+						) : (
+							""
+						)}
 					</div>
 					<div className={styleInput}>
 						<Input
 							id="price"
 							title="Valor"
-							onChange={handleInput}
-							value={valueInput.price || ""}
+							onChange={(e) => handleInput(e)}
+							value={input.price || ""}
 							placeholder="Digite o valor do produto"
 						/>
+						{atent == true && input.price == "" ? (
+							<span>Digite o valor do produto</span>
+						) : (
+							""
+						)}
 					</div>
 					<div className={styleInput}>
 						<Input
 							id="description"
 							title="Descrição"
-							onChange={handleInput}
-							value={valueInput.description || ""}
+							onChange={(e) => handleInput(e)}
+							value={input.description || ""}
 							placeholder="Digite sobre do produto"
 						/>
+						{atent == true && input.description == "" ? (
+							<span>Digite o nome do produto</span>
+						) : (
+							""
+						)}
 					</div>
 					<label data-input className={styleInput} htmlFor="type">
 						<h4>Tipo</h4>
@@ -108,13 +141,18 @@ const NewProduct = () => {
 							id="type"
 							name="type"
 							data-label
-							onChange={handleInput}
-							value={valueInput.type || ""}>
+							onChange={(e) => handleInput(e)}
+							value={input.type || ""}>
 							<option hidden>Selecione o produto</option>
 							{array.map((list, index) => {
 								return <option key={index}>{list.type}</option>
 							})}
 						</select>
+						{atent == true && input.type == "" ? (
+							<span>Digite o tipo do produto</span>
+						) : (
+							""
+						)}
 					</label>
 				</div>
 				<button className="col-3">Enviar</button>
