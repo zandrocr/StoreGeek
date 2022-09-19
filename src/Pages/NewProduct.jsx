@@ -47,9 +47,8 @@ const NewProduct = () => {
 	}
 
 	const handleInput = (e) => {
-		let newInput = input
-		newInput[e.target.name] = e.target.value
-		setInput({ ...newInput })
+		const {name, value} = e.target
+		setInput({ ...input, [name]: value })
 	}
 
 	const submit = (e) => {
