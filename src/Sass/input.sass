@@ -1,15 +1,18 @@
-[data-input]
+@import 'import'
+
+[data-label]
     margin-top: 3vh
 
-    [data-label]
+    [data-input]
         border: solid 1px
         border-radius: 1vh
-        box-shadow: 3px 5px 5px #000
+        box-shadow: 3px 5px 5px $black
 
     [data-image]
         height: 30vh
 
 @media screen and ( max-width: 768px )
-    [data-input]
+    [data-label]
         [data-image]
             height: 20vh
+
