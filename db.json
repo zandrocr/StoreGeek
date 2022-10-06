@@ -1,0 +1,58 @@
+{
+	"Quadro": [
+		{
+			"id": "2",
+			"description": "Ping",
+			"file": "https://firebasestorage.googleapis.com/v0/b/loja-gee.appspot.com/o/images%2F1916d7d25021a5f93418ebdcc718c65c.jpg?alt=media&token=b83f7e32-ff5f-4f58-935a-6a192c9312d7",
+			"name": "Fire",
+			"price": "233",
+			"timeStamp": "28 de setembro de 2022 14:59:36 UTC-3 (timestamp)",
+			"type": "Caneca"
+		},
+		{
+			"id": "3",
+			"description": "Meu",
+			"file": "https://firebasestorage.googleapis.com/v0/b/loja-gee.appspot.com/o/images%2F1916d7d25021a5f93418ebdcc718c65c.jpg?alt=media&token=b83f7e32-ff5f-4f58-935a-6a192c9312d7",
+			"name": "Fire",
+			"price": "233",
+			"timeStamp": "28 de setembro de 2022 14:59:36 UTC-3 (timestamp)",
+			"type": "Caneca"
+		},
+		{
+			"id": "4",
+			"description": "Buu",
+			"file": "https://firebasestorage.googleapis.com/v0/b/loja-gee.appspot.com/o/images%2F1916d7d25021a5f93418ebdcc718c65c.jpg?alt=media&token=b83f7e32-ff5f-4f58-935a-6a192c9312d7",
+			"name": "Fire",
+			"price": "233",
+			"timeStamp": "28 de setembro de 2022 14:59:36 UTC-3 (timestamp)",
+			"type": "Caneca"
+		},
+		{
+			"id": "5",
+			"description": "Zii",
+			"file": "https://firebasestorage.googleapis.com/v0/b/loja-gee.appspot.com/o/images%2F1916d7d25021a5f93418ebdcc718c65c.jpg?alt=media&token=b83f7e32-ff5f-4f58-935a-6a192c9312d7",
+			"name": "Fire",
+			"price": "233",
+			"timeStamp": "28 de setembro de 2022 14:59:36 UTC-3 (timestamp)",
+			"type": "Caneca"
+		},
+		{
+			"id": "6",
+			"description": "Ar",
+			"file": "https://firebasestorage.googleapis.com/v0/b/loja-gee.appspot.com/o/images%2F1916d7d25021a5f93418ebdcc718c65c.jpg?alt=media&token=b83f7e32-ff5f-4f58-935a-6a192c9312d7",
+			"name": "Fire",
+			"price": "233",
+			"timeStamp": "28 de setembro de 2022 14:59:36 UTC-3 (timestamp)",
+			"type": "Caneca"
+		},
+		{
+			"id": "7",
+			"description": "No",
+			"file": "https://firebasestorage.googleapis.com/v0/b/loja-gee.appspot.com/o/images%2F1916d7d25021a5f93418ebdcc718c65c.jpg?alt=media&token=b83f7e32-ff5f-4f58-935a-6a192c9312d7",
+			"name": "Fire",
+			"price": "233",
+			"timeStamp": "28 de setembro de 2022 14:59:36 UTC-3 (timestamp)",
+			"type": "Caneca"
+		}
+	]
+}

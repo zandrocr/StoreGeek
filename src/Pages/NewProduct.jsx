@@ -1,20 +1,14 @@
 //firestore
 import { submitProduct } from "../api/submitProduct"
 //hook
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import Input from "../Components/input"
 //css
 import "../css/newProduct.css"
 import FileImg from "../img/file.png"
 import Loading from "../Components/Loading"
-
-const array = [
-	{ type: "Quadro" },
-	{ type: "Caneca" },
-	{ type: "Funko" },
-	{ type: "Almofada" },
-	{ type: "Camisa" },
-]
+import Product from "../Components/Product"
+import { array } from "../api/array"
 
 const styleInput = "d-flex flex-column col-12 col-lg-5"
 
@@ -47,6 +41,7 @@ const NewProduct = () => {
 		setInput({ ...input, [name]: value })
 	}
 
+	// console.log(input.type)
 	const submit = (e) => {
 		e.preventDefault()
 		setLoading(true)
@@ -61,6 +56,7 @@ const NewProduct = () => {
 		})
 	}
 
+
 	return (
 		<section className="newProduct col-12 d-flex flex-column align-items-center justify-content-center">
 			{loading == true ? <Loading /> : null}
@@ -69,7 +65,7 @@ const NewProduct = () => {
 					submit(e)
 				}}
 				className="formProduct col-10 d-flex flex-column align-items-center">
-				<div className="col-12 d-flex column flex-lg-row align-items-center flex-sm-wrap justify-content-between">
+				<div className="col-12 d-flex flex-column flex-lg-row align-items-center flex-sm-wrap justify-content-between">
 					<div className="d-flex flex-column align-items-center col-12">
 						<Input
 							id="file"
@@ -116,14 +112,15 @@ const NewProduct = () => {
 							onChange={handleInput}
 							value={input.type || ""}>
 							<option hidden>Selecione o produto</option>
-							{array.map((list, index) => {
-								return <option key={index}>{list.type}</option>
+							{array.map((list, i) => {
+								return <option key={i}>{list.type}</option>
 							})}
 						</select>
 					</label>
 				</div>
 				<button className="col-3">Enviar</button>
 			</form>
+			<Product />
 		</section>
 	)
 }

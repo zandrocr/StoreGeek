@@ -1,22 +1,15 @@
 //components
 import Input from "./input"
+import { array } from "../api/array"
+import { editProduct } from "../api/submitProduct"
 //hooks
+import { Link } from "react-router-dom"
 import { useState } from "react"
 //style
 import "../css/change.css"
 import Loading from "./Loading"
-import { Link } from "react-router-dom"
-import { editProduct } from "../api/submitProduct"
 
 const styleInput = "d-flex flex-column col-12 col-lg-5"
-
-const array = [
-	{ type: "Quadro" },
-	{ type: "Caneca" },
-	{ type: "Funko" },
-	{ type: "Almofada" },
-	{ type: "Camisa" },
-]
 
 const Change = (props) => {
 	const [file, setFile] = useState("")
@@ -37,6 +30,31 @@ const Change = (props) => {
 		}
 	}
 
+	const handleInput = (e) => {
+		const { name, value } = e.target
+		setEditInput({ ...editInput, [name]: value })
+	}
+
+	// console.log(editInput.setType)
+
+	const editProd = (e) => {
+		e.preventDefault()
+		// setLoading(true)
+		editProduct({
+			id: props.item.id,
+			namefile: file.name,
+			file: file == "" ? props.item.file : file,
+			delFile: file == "" ? null : props.item.file,
+			setName: editInput.setName == null ? props.item.name : editInput.setName,
+			setPrice: editInput.setPrice == null ? props.item.price : editInput.setPrice,
+			setDescription:
+				editInput.setDescription == null
+					? props.item.description
+					: editInput.setDescription,
+			setType: editInput.setType == null ? props.item.type : editInput.setType,
+		})
+	}
+
 	function closeModal() {
 		props.setModal(!props.modal)
 		setFile(null)
@@ -44,35 +62,14 @@ const Change = (props) => {
 		setFile("")
 	}
 
-	const handleInput = (e) => {
-		const { name, value } = e.target
-		setEditInput({ ...editInput, [name]: value })
-	}
-
-	const editProd = (e) => {
-		e.preventDefault()
-		setLoading(true)
-		editProduct({
-			id: props.item.id,
-			namefile: file.name,
-			file: file,
-			delFile: props.item.file,
-			setName: editInput.setName,
-			setPrice: editInput.setPrice,
-			setDescription: editInput.setDescription,
-			setSelect: editInput.setSelect,
-		})
-	}
-
 	return (
 		<section className="col-12 d-flex justify-content-center">
 			{loading == true ? <Loading /> : null}
 			<form
 				data-change={props.modal == true ? "" : "close"}
-				//
 				className="col-12 flex-column align-items-center"
 				onSubmit={editProd}>
-				<div className="inForm col-11 d-flex flex-column flex-lg-row align-items-center flex-sm-wrap justify-content-between">
+				<div className="inForm col-11 d-flex flex-column flex-lg-row align-items-center flex-sm-wrap justify-content-around justify-content-lg-between">
 					<div className="d-flex flex-column align-items-center col-12">
 						<Input
 							title="Imagem"
@@ -110,15 +107,14 @@ const Change = (props) => {
 							value={editInput.setDescription || ""}
 						/>
 					</div>
-					<p>{props.item.select}</p>
-					<label data-input className={styleInput} htmlFor="select">
+					<label data-label className={styleInput} htmlFor="select">
 						<h4>Tipo</h4>
 						<select
-							id="setSelect"
-							name="setSelect"
-							data-label
+							id="setType"
+							name="setType"
+							data-input
 							onChange={handleInput}
-							value={editInput.setSelect || ""}>
+							value={editInput.setType || ""}>
 							<option hidden>{props.item.type}</option>
 							{array.map((list, index) => {
 								return <option key={index}>{list.type}</option>

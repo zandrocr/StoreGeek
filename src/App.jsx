@@ -30,7 +30,7 @@ function App() {
 				<Route path="/funko" element={<Funko />} />
 				<Route path="/cushion" element={<Cushion />} />
 				<Route path="/shirt" element={<Shirt />} />
-				<Route path="/newProduct" element={<Private Item={NewProduct} />} />
+				<Route path="/newProduct" element={<NewProduct />} />
 				<Route path="/newProduct/:id" element={<NewProduct />} />
 			</Routes>
 			<Navbar />
