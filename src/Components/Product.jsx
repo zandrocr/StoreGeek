@@ -56,9 +56,9 @@ const Product = () => {
 					onChange={selectColle}
 					onClick={selectClik}>
 					<option hidden>Selecione o produto</option>
-					{/* {array.map((list) => {
-						return <option key={list.id}>{list.type}</option>
-					})} */}
+					{array.map((list, index) => {
+						return <option key={index}>{list.type}</option>
+					})}
 				</select>
 			</label>
 			<Change item={item} modal={modal} setModal={setModal} />

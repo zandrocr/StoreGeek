@@ -1,59 +1,82 @@
+//hook
+import { useState, useEffect } from "react"
+//components
+import Card from "../Components/Card"
+import Carous from "../Components/Carousel"
+//api
+import { List } from "../api/array"
+import { getDoc } from "../api/submitProduct"
+//css
 import "../css/painting.css"
 import "../css/options.css"
-import { animation } from "../api/array"
-import { getDoc } from "../api/submitProduct"
-import { useState } from "react"
+import bannerO from "../img/banners/jujutsu.png"
+import bannerTw from "../img/banners/onePiece.png"
+import bannerT from "../img/banners/dragon.png"
 
 const Painting = () => {
 	const [quadro, setQuadro] = useState([])
+	useEffect(() => {
+		getDoc({ set: setQuadro, colle: "Quadro" })
+	}, [])
 
-	function selectClik() {
-		setTimeout(() => {
-			getDoc({ set: setQuadro, colle: editInput })
-		}, [])
+	const [view, setView] = useState(false)
+	function changeOptions() {
+		if (window.scrollY >= 390) {
+			setView(true)
+		} else setView(false)
 	}
+	window.addEventListener("scroll", changeOptions)
 
 	return (
-		<section className="painting col-12 d-flex justify-content-center">
-			<div className="options col-3 d-flex flex-column align-items-center justify-contente center">
-				{/* <div data-options="marcas" className="col-12">
-					<h5>Marcas</h5>
-					<div className="typeAnimation col-10">
-						{animation.map((animation, index) => {
+		<section className="painting col-12 d-flex flex-column justify-content-end">
+			<Carous imgO={bannerO} imgTw={bannerTw} imgT={bannerT} />
+			<div className="d-flex down">
+				
+				<div
+					data-option={view == true ? "view" : ""}
+					className={`col-10 col-md-5 col-lg-2 d-flex flex-column align-items-center justify-contente center`}>
+					<List title="Marcas" list={animation} />
+					<List title="Melhores preços" list={value} />
+				</div>
+				<section className="d-flex justify-content-end">
+					<div
+						className={`${
+							view == true ? "col-lg-10" : "col-lg-12"
+						} d-flex flex-wrap justify-content-around`}>
+						{quadro.map((quadro, index) => {
 							return (
-								<ul key={index}>
-									<li>{animation.type}</li>
-								</ul>
+								<Card
+									key={index}
+									id={quadro.id}
+									file={quadro.file}
+									name={quadro.name}
+									price={quadro.price}
+									description={quadro.description}
+								/>
 							)
 						})}
 					</div>
-				</div> */}
-				{/* <div data-options="preco" className="col-12">
-					<h5>Melhores preços</h5>
-					<div className="typeAnimation col-10">
-						{animation.map((animation) => {
-							return (
-								<ul>
-									<button>{animation.type}</button>
-								</ul>
-							)
-						})}
-					</div>
-				</div> */}
+				</section>
 			</div>
-			{quadro.map((quadro) => {
-				return (
-					<Card
-						id={quadro.id}
-						file={quadro.file}
-						name={quadro.name}
-						price={quadro.price}
-						description={quadro.description}
-					/>
-				)
-			})}
 		</section>
 	)
 }
 
 export default Painting
+
+const animation = [
+	{ type: "Marvel" },
+	{ type: "Naruto" },
+	{ type: "DC Comics" },
+	{ type: "One Piece" },
+	{ type: "Ciência" },
+	{ type: "Hunter x Hunter" },
+	{ type: "Jujutsu Kaisen" },
+]
+
+const value = [
+	{ type: "De $R5,00 a R$20,00" },
+	{ type: "De $R20,00 a R$50,00" },
+	{ type: "De $R50,00 a R$100,00" },
+	{ type: "De $R100,00 a R$200,00" },
+]

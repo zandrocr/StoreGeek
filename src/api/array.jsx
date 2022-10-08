@@ -7,28 +7,27 @@ import Shirt from "../img/shirt.png"
 
 export const array = [
 	{ type: "Quadro", img: Painting },
-	{ type: "Caneca", img: Mug},
+	{ type: "Caneca", img: Mug },
 	{ type: "Funko", img: Funko },
-	{ type: "Decorção", img: Cushion},
-	{ type: "Camisa", img: Shirt},
+	{ type: "Decorção", img: Cushion },
+	{ type: "Camisa", img: Shirt },
 ]
 
-export const animation = [
-	{ type: "Marvel" },
-	{ type: "Naruto" },
-	{ type: "DC Comics" },
-	{ type: "One Piece" },
-	{ type: "Ciência" },
-	{ type: "Hunter x Hunter" },
-	{ type: "Jujutsu Kaisen" },
-]
-export const value = [
-	{ type: "R$50,00" },
-	{ type: "Naruto" },
-	{ type: "DC Comics" },
-	{ type: "One Piece" },
-	{ type: "Ciência" },
-	{ type: "Hunter x Hunter" },
-	{ type: "Jujutsu Kaisen" },
-]
-
+//list options
+export const List = (props) => {
+	return (
+		<div data-options="marcas" className="col-12">
+			<h5>{props.title}</h5>
+			<div className="typeAnimation col-10">
+				{/* <p>{props.list}</p> */}
+				{props.list.map((animation, index) => {
+					return (
+						<ul key={index}>
+							<li>{animation.type}</li>
+						</ul>
+					)
+				})}
+			</div>
+		</div>
+	)
+}
