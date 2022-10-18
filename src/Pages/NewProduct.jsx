@@ -30,8 +30,8 @@ const NewProduct = () => {
 			setFile(img)
 			setErro(false)
 		} else {
-			setFile(null)
 			setErro(true)
+			setFile(null)
 		}
 	}
 
@@ -76,7 +76,13 @@ const NewProduct = () => {
 							className="col-12"
 							src={file ? URL.createObjectURL(file) : FileImg}
 						/>
-						<p>{erro && file == "" ? "Envie uma imagem" : null}</p>
+						<p>
+							{erro && file == ""
+								? "Envie uma imagem"
+								: null || (erro && file !== types)
+								? "Envie um arquivo valido"
+								: null}
+						</p>
 					</div>
 					<div className={styleInput}>
 						<Input
@@ -86,7 +92,11 @@ const NewProduct = () => {
 							value={input.name || ""}
 							placeholder="Digite o nome do produto"
 						/>
-						{erro && input.name == "" ? <p>Digite o nome do produto</p> : null}
+						{erro && input.name == "" ? (
+							<p>Digite o nome do produto</p>
+						) : null || (erro && input.name.length < 3) ? (
+							<p>Pelo menos 3 caracteres</p>
+						) : null}
 					</div>
 					<div className={styleInput}>
 						<Input
@@ -96,7 +106,11 @@ const NewProduct = () => {
 							value={input.price || ""}
 							placeholder="Digite o valor do produto"
 						/>
-						{erro && input.price == "" ? <p>Digite o valor do produto</p> : null}
+						{erro && input.price == "" ? (
+							<p>Digite o valor do produto</p>
+						) : null || (erro && input.description.length < 5) ? (
+							<p>Pelo menos 5 caracteres</p>
+						) : null}
 					</div>
 					<div className={styleInput}>
 						<Input
@@ -106,7 +120,11 @@ const NewProduct = () => {
 							value={input.description || ""}
 							placeholder="Sobre o produto"
 						/>
-						{erro && input.description == "" ? <p>Digite sobre do produto</p> : null}
+						{erro && input.description == "" ? (
+							<p>Digite sobre do produto</p>
+						) : null || (erro && input.description.length < 5) ? (
+							<p>Pelo menos 5 caracteres</p>
+						) : null}
 					</div>
 					<label htmlFor="type" data-label className={styleInput}>
 						<h4>Tipo</h4>
