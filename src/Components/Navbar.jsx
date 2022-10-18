@@ -58,7 +58,7 @@ const Navbar = () => {
 					return (
 						<div key={index}>
 							<Link
-								to="/painting"
+								to={`${produt.link}`}
 								data-link={openO}
 								className="d-flex align-items-center justify-content-center"
 								onClick={handleClose}>

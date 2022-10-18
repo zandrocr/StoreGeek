@@ -2,12 +2,10 @@ import { useEffect, useState } from "react"
 import { delProduct } from "../api/deletProduct"
 //css
 import "../css/allProduct.css"
-import "../css/card.css"
-import Otaku from "../img/otaku.png"
 //components
 import Change from "./Change"
 import { Link } from "react-router-dom"
-import { axiosGet, getDoc } from "../api/submitProduct"
+import { getDoc } from "../api/submitProduct"
 import { array } from "../api/array"
 
 const Product = () => {
@@ -30,8 +28,6 @@ const Product = () => {
 		selectClik()
 	}, [])
 
-	axiosGet({ set: setProduct })
-
 	function onModal(e) {
 		setItem(e.item)
 		setModal(!modal)
@@ -43,6 +39,7 @@ const Product = () => {
 
 	return (
 		<section className="allProduct col-12 d-flex flex-column align-items-center">
+			<Change item={item} modal={modal} setModal={setModal} />
 			<label
 				data-label
 				className="col-10 d-flex flex-column align-items-center"
@@ -61,7 +58,6 @@ const Product = () => {
 					})}
 				</select>
 			</label>
-			<Change item={item} modal={modal} setModal={setModal} />
 			<div className="cap col-12 d-flex flex-wrap justify-content-cente justify-content-around">
 				{product.map((item) => {
 					return (
@@ -73,6 +69,8 @@ const Product = () => {
 							<div className="d-flex flex-column col-11 align-items-center">
 								<div className="col-12 d-flex justify-content-between">
 									<h4>{item.name}</h4>
+								</div>
+								<div className="col-12 d-flex justify-content-end">
 									<h6>R$ {item.price}</h6>
 								</div>
 								<div>

@@ -35,16 +35,16 @@ const Change = (props) => {
 		setEditInput({ ...editInput, [name]: value })
 	}
 
-	// console.log(editInput.setType)
+	// console.log(file)
 
 	const editProd = (e) => {
 		e.preventDefault()
-		// setLoading(true)
+		setLoading(true)
 		editProduct({
 			id: props.item.id,
 			namefile: file.name,
 			file: file == "" ? props.item.file : file,
-			delFile: file == "" ? null : props.item.file,
+			delFile: file == "" || null ? null : props.item.file,
 			setName: editInput.setName == null ? props.item.name : editInput.setName,
 			setPrice: editInput.setPrice == null ? props.item.price : editInput.setPrice,
 			setDescription:

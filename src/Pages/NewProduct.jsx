@@ -22,7 +22,6 @@ const NewProduct = () => {
 		type: "",
 	})
 	const [erro, setErro] = useState(false)
-	const [atent, setAtent] = useState(false)
 	const types = ["image/png", "image/jpeg"]
 
 	const previewImage = (e) => {
@@ -41,21 +40,23 @@ const NewProduct = () => {
 		setInput({ ...input, [name]: value })
 	}
 
-	// console.log(input.type)
 	const submit = (e) => {
 		e.preventDefault()
-		setLoading(true)
-
-		submitProduct({
-			file: file,
-			nameFile: file.name,
-			name: input.name,
-			type: input.type,
-			price: input.price,
-			description: input.description,
-		})
+		if (file || input.name || input.price || input.price || input.type == "") {
+			setErro(true)
+		} else {
+			setErro(false)
+			setLoading(true)
+			submitProduct({
+				file: file,
+				nameFile: file.name,
+				name: input.name,
+				type: input.type,
+				price: input.price,
+				description: input.description,
+			})
+		}
 	}
-
 
 	return (
 		<section className="newProduct col-12 d-flex flex-column align-items-center justify-content-center">
@@ -75,6 +76,7 @@ const NewProduct = () => {
 							className="col-12"
 							src={file ? URL.createObjectURL(file) : FileImg}
 						/>
+						<p>{erro && file == "" ? "Envie uma imagem" : null}</p>
 					</div>
 					<div className={styleInput}>
 						<Input
@@ -84,6 +86,7 @@ const NewProduct = () => {
 							value={input.name || ""}
 							placeholder="Digite o nome do produto"
 						/>
+						{erro && input.name == "" ? <p>Digite o nome do produto</p> : null}
 					</div>
 					<div className={styleInput}>
 						<Input
@@ -93,6 +96,7 @@ const NewProduct = () => {
 							value={input.price || ""}
 							placeholder="Digite o valor do produto"
 						/>
+						{erro && input.price == "" ? <p>Digite o valor do produto</p> : null}
 					</div>
 					<div className={styleInput}>
 						<Input
@@ -102,6 +106,7 @@ const NewProduct = () => {
 							value={input.description || ""}
 							placeholder="Sobre o produto"
 						/>
+						{erro && input.description == "" ? <p>Digite sobre do produto</p> : null}
 					</div>
 					<label htmlFor="type" data-label className={styleInput}>
 						<h4>Tipo</h4>
@@ -116,6 +121,7 @@ const NewProduct = () => {
 								return <option key={i}>{list.type}</option>
 							})}
 						</select>
+						{erro && input.type == "" ? <p>Selecione o tipo do produto</p> : null}
 					</label>
 				</div>
 				<button className="col-3">Enviar</button>

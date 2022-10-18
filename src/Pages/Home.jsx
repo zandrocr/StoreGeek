@@ -1,6 +1,5 @@
 //api
 import { Api } from "../api/api"
-import { axiosGet } from "../api/submitProduct"
 //hook
 import { useEffect, useState } from "react"
 //components
@@ -18,10 +17,6 @@ const Home = () => {
 	const [quadro, setQuadro] = useState([])
 	const [quadroOne, setQuadroOne] = useState([])
 
-	axiosGet({ set: setQuadro, id: "2" }, { set: setQuadroOne, id: "3" })
-	// axiosGet({ set: setQuadroOne, id: "3" })
-
-	// console.log(quadro)
 
 	return (
 		<section

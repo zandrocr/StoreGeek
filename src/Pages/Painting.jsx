@@ -28,10 +28,9 @@ const Painting = () => {
 	window.addEventListener("scroll", changeOptions)
 
 	return (
-		<section className="painting col-12 d-flex flex-column justify-content-end">
+		<section className="page col-12 d-flex flex-column justify-content-end">
 			<Carous imgO={bannerO} imgTw={bannerTw} imgT={bannerT} />
 			<div className="d-flex down">
-				
 				<div
 					data-option={view == true ? "view" : ""}
 					className={`col-10 col-md-5 col-lg-2 d-flex flex-column align-items-center justify-contente center`}>
