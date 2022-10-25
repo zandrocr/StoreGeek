@@ -1,4 +1,4 @@
-import '../css/card.css'
+import "../css/card.css"
 
 const Card = (props) => {
 	return (
@@ -12,7 +12,9 @@ const Card = (props) => {
 					<h4>{props.name}</h4>
 				</div>
 				<div className="col-12 d-flex justify-content-end">
-					<h6>R$ {props.price}</h6>
+					<h6>
+						R$ {props.price}
+					</h6>
 				</div>
 				<div>
 					<p>{props.description}</p>

@@ -1,28 +1,29 @@
 //firestore
-import { submitProduct } from "../api/submitProduct"
+import { Mask, submitProduct } from "../api/submitProduct"
 //hook
-import { useEffect, useState } from "react"
+import { useState } from "react"
+//componet
 import Input from "../Components/input"
 //css
 import "../css/newProduct.css"
 import FileImg from "../img/file.png"
 import Loading from "../Components/Loading"
-import Product from "../Components/Product"
+import CardEdit from "../Components/CardEdit"
 import { array } from "../api/array"
 
 const styleInput = "d-flex flex-column col-12 col-lg-5"
 
 const NewProduct = () => {
 	const [loading, setLoading] = useState(false)
+	const [erro, setErro] = useState(false)
 	const [file, setFile] = useState("")
+	const types = ["image/png", "image/jpeg"]
 	const [input, setInput] = useState({
 		name: "",
 		price: "",
 		description: "",
 		type: "",
 	})
-	const [erro, setErro] = useState(false)
-	const types = ["image/png", "image/jpeg"]
 
 	const previewImage = (e) => {
 		const img = e.target.files[0]
@@ -42,7 +43,13 @@ const NewProduct = () => {
 
 	const submit = (e) => {
 		e.preventDefault()
-		if (file || input.name || input.price || input.price || input.type == "") {
+		if (
+			file == "" ||
+			input.name == "" ||
+			input.type == "" ||
+			input.price == "" ||
+			input.type == ""
+		) {
 			setErro(true)
 		} else {
 			setErro(false)
@@ -52,7 +59,7 @@ const NewProduct = () => {
 				nameFile: file.name,
 				name: input.name,
 				type: input.type,
-				price: input.price,
+				price: Mask({ mask: input.price }),
 				description: input.description,
 			})
 		}
@@ -76,21 +83,16 @@ const NewProduct = () => {
 							className="col-12"
 							src={file ? URL.createObjectURL(file) : FileImg}
 						/>
-						<p>
-							{erro && file == ""
-								? "Envie uma imagem"
-								: null || (erro && file !== types)
-								? "Envie um arquivo valido"
-								: null}
-						</p>
+						<p>{erro && file == "" ? "Envie uma imagem" : null}</p>
 					</div>
 					<div className={styleInput}>
 						<Input
 							id="name"
 							title="Nome do produto"
 							onChange={handleInput}
-							value={input.name || ""}
+							value={input.name}
 							placeholder="Digite o nome do produto"
+							max="50"
 						/>
 						{erro && input.name == "" ? (
 							<p>Digite o nome do produto</p>
@@ -103,13 +105,14 @@ const NewProduct = () => {
 							id="price"
 							title="Valor do produto"
 							onChange={handleInput}
-							value={input.price || ""}
+							value={Mask({ mask: input.price })}
 							placeholder="Digite o valor do produto"
+							max="8"
 						/>
 						{erro && input.price == "" ? (
 							<p>Digite o valor do produto</p>
-						) : null || (erro && input.description.length < 5) ? (
-							<p>Pelo menos 5 caracteres</p>
+						) : null || (erro && input.price.length < 5) ? (
+							<p>Pelo menos R$ 10,00</p>
 						) : null}
 					</div>
 					<div className={styleInput}>
@@ -117,8 +120,9 @@ const NewProduct = () => {
 							id="description"
 							title="Descrição do produto"
 							onChange={handleInput}
-							value={input.description || ""}
+							value={input.description}
 							placeholder="Sobre o produto"
+							max="30"
 						/>
 						{erro && input.description == "" ? (
 							<p>Digite sobre do produto</p>
@@ -133,7 +137,7 @@ const NewProduct = () => {
 							id="type"
 							data-input
 							onChange={handleInput}
-							value={input.type || ""}>
+							value={input.type}>
 							<option hidden>Selecione o produto</option>
 							{array.map((list, i) => {
 								return <option key={i}>{list.type}</option>
@@ -144,7 +148,7 @@ const NewProduct = () => {
 				</div>
 				<button className="col-3">Enviar</button>
 			</form>
-			<Product />
+			<CardEdit />
 		</section>
 	)
 }

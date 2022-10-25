@@ -1,0 +1,20 @@
+@import 'import'
+
+[data-alert]
+    top: 0
+
+    z-index: 25
+    width: 100vw
+    height: 100vh
+    position: fixed
+    color: #ffffff00
+    animation: alert 5s
+
+@keyframes alert
+    0%
+        background: none
+    50%
+        color: $black
+        background: $orange
+    100%
+        background: none

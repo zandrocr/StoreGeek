@@ -7,8 +7,8 @@ export const delProduct = (props) => {
 		.then(() => {
 			console.log("Doc deleted successfully")
 		})
-		.catch((error) => {
-			console.log(`Uh-oh, an ${error} occurred!`)
+		.catch((err) => {
+			console.log(`Uh-oh, an ${err} occurred!`)
 		})
 
 	deleteObject(ref(storage, props.file))
@@ -16,7 +16,7 @@ export const delProduct = (props) => {
 			console.log("File deleted successfully")
 			window.location.reload()
 		})
-		.catch((error) => {
-			console.log(`Uh-oh, an ${error} occurred!`)
+		.catch((err) => {
+			console.log(`Uh-oh, an ${err} occurred!`)
 		})
 }

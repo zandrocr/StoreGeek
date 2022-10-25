@@ -52,14 +52,18 @@ export const editProduct = async (props) => {
 	const uploadTask = uploadBytesResumable(storageRef, props.file)
 	props.delFile == null
 		? setTimeout(() => {
-				setDoc(doc(db, props.setType, props.id), {
-					file: props.file,
-					name: props.setName,
-					price: props.setPrice,
-					description: props.setDescription,
-					type: props.setType,
-					timeStamp: serverTimestamp(),
-				})
+				try {
+					setDoc(doc(db, props.setType, props.id), {
+						file: props.file,
+						name: props.setName,
+						price: props.setPrice,
+						description: props.setDescription,
+						type: props.setType,
+						timeStamp: serverTimestamp(),
+					})
+				} catch (e) {
+					console.log("Error adding document: ", e)
+				}
 				setTimeout(() => {
 					console.log("Document updated")
 					window.location.reload()
@@ -125,16 +129,9 @@ export const getDoc = async (props) => {
 	)
 }
 
-// export const axiosGet = (props) => {
-// 	useEffect(() => {
-// 		setTimeout(() => {
-// 			Api.get(`/Quadro/${props.id}`)
-// 				.then((response) => {
-// 					props.set(response.data)
-// 				})
-// 				.catch((e) => {
-// 					console.log(e)
-// 				})
-// 		}, [])
-// 	}, [])
-// }
+export const Mask = (props) => {
+	return props.mask
+		.replace(/\D+/g, "")
+		.replace(/(\d{0})(\d{2})$/, "$1,$2")
+		.replace(/(\d{1})(\d{3})/, "$1.$2")
+}
