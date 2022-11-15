@@ -8,7 +8,7 @@ import shirt from "../img/shirt.png"
 export const array = [
 	{ type: "Quadro", img: painting, link: "painting" },
 	{ type: "Caneca", img: mug, link: "mug" },
-	{ type: "funko", img: funko, link: "funko" },
+	{ type: "Funko", img: funko, link: "funko" },
 	{ type: "Decoração", img: cushion, link: "cushion" },
 	{ type: "Camisa", img: shirt, link: "shirt" },
 ]

@@ -1,6 +1,6 @@
 import { storage, db } from "./api"
-import { ref, uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage"
-import { addDoc, collection, doc, getDocs, serverTimestamp, setDoc } from "firebase/firestore/lite"
+import { uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage"
+import { addDoc, serverTimestamp, setDoc, collection, getDocs } from "firebase/firestore/lite"
 
 export const submitProduct = async (props) => {
 	const storageRef = ref(storage, `/images/${props.setType}/${props.nameFile}`)
@@ -127,11 +127,33 @@ export const getDoc = async (props) => {
 			id: doc.id,
 		}))
 	)
+	// console.log(data)
+}
+
+import { query, where, limit, startAt, onSnapshot } from "firebase/firestore"
+import { async } from "@firebase/util"
+// , "5kqSpIeGW50Ww6oqt4zU"
+export const Pages = async (props) => {
+	const data = await getDocs(collection(db, props.colle))
+	props.set(
+		data.docs.map((doc) => ({
+			...doc.data(),
+			id: doc.id,
+		}))
+	)
+	// console.log(q)
 }
 
 export const Mask = (props) => {
+	return (Number(props.mask.replace(/\D/g, "")) / 100).toLocaleString({
+		style: "currency",
+		currency: "BRL",
+	})
+}
+
+export const MaskChange = (props) => {
 	return props.mask
 		.replace(/\D+/g, "")
-		.replace(/(\d{0})(\d{2})$/, "$1,$2")
-		.replace(/(\d{1})(\d{3})/, "$1.$2")
+		.replace(/(\d{1})(\d{2})$/, props.replace)
+		.replace(/^([0-9]{1})([0-9]{3})/g, "$1.$2")
 }

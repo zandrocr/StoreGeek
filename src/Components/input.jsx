@@ -1,10 +1,12 @@
 import "../css/input.css"
 
 const Input = (props) => {
-
 	return (
-		<label data-label htmlFor={props.id} className={`d-flex flex-column ${props.className}`}>
-			<h4>{props.title}</h4>
+		<label
+			data-label
+			htmlFor={props.id}
+			className={`d-flex flex-column justify-content-center ${props.className}`}>
+			{props.title ? <h4>{props.title}</h4> : ""}
 			<input
 				data-input
 				value={props.value}

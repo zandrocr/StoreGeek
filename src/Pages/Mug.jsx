@@ -12,10 +12,10 @@ import bannerTw from "../img/banners/onePiece.png"
 import bannerT from "../img/banners/dragon.png"
 
 const Mug = () => {
-	const [quadro, setQuadro] = useState([])
+	const [Mug, setMug] = useState([])
 
 	useEffect(() => {
-		getDoc({ set: setQuadro, colle: "Caneca" })
+		getDoc({ set: setMug, colle: "Caneca" })
 	}, [])
 
 	const [view, setView] = useState(false)
@@ -41,15 +41,15 @@ const Mug = () => {
 						className={`${
 							view == true ? "col-lg-10" : "col-lg-12"
 						} d-flex flex-wrap justify-content-around`}>
-						{quadro.map((quadro, index) => {
+						{Mug.map((Mug, index) => {
 							return (
 								<Card
 									key={index}
-									id={quadro.id}
-									file={quadro.file}
-									name={quadro.name}
-									price={quadro.price}
-									description={quadro.description}
+									id={Mug.id}
+									file={Mug.file}
+									name={Mug.name}
+									price={Mug.price}
+									description={Mug.description}
 								/>
 							)
 						})}

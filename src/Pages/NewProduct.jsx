@@ -1,7 +1,8 @@
 //firestore
-import { Mask, submitProduct } from "../api/submitProduct"
+import { submitProduct } from "../api/submitProduct"
 //hook
 import { useState } from "react"
+import { Mask, MaskChange } from "../api/mask"
 //componet
 import Input from "../Components/input"
 //css
@@ -59,7 +60,7 @@ const NewProduct = () => {
 				nameFile: file.name,
 				name: input.name,
 				type: input.type,
-				price: Mask({ mask: input.price }),
+				price: Mask({ mask: input.price, type: "$1,$2" }),
 				description: input.description,
 			})
 		}
@@ -74,17 +75,6 @@ const NewProduct = () => {
 				}}
 				className="formProduct col-10 d-flex flex-column align-items-center">
 				<div className="col-12 d-flex flex-column flex-lg-row align-items-center flex-sm-wrap justify-content-between">
-					<div className="d-flex flex-column align-items-center col-12">
-						<Input
-							id="file"
-							title="Imagem"
-							onChange={previewImage}
-							type="file"
-							className="col-12"
-							src={file ? URL.createObjectURL(file) : FileImg}
-						/>
-						<p>{erro && file == "" ? "Envie uma imagem" : null}</p>
-					</div>
 					<div className={styleInput}>
 						<Input
 							id="name"
@@ -105,7 +95,7 @@ const NewProduct = () => {
 							id="price"
 							title="Valor do produto"
 							onChange={handleInput}
-							value={Mask({ mask: input.price })}
+							value={MaskChange({ mask: input.price, replace: "$1,$2" })}
 							placeholder="Digite o valor do produto"
 							max="8"
 						/>
@@ -113,21 +103,6 @@ const NewProduct = () => {
 							<p>Digite o valor do produto</p>
 						) : null || (erro && input.price.length < 5) ? (
 							<p>Pelo menos R$ 10,00</p>
-						) : null}
-					</div>
-					<div className={styleInput}>
-						<Input
-							id="description"
-							title="Descrição do produto"
-							onChange={handleInput}
-							value={input.description}
-							placeholder="Sobre o produto"
-							max="30"
-						/>
-						{erro && input.description == "" ? (
-							<p>Digite sobre do produto</p>
-						) : null || (erro && input.description.length < 5) ? (
-							<p>Pelo menos 5 caracteres</p>
 						) : null}
 					</div>
 					<label htmlFor="type" data-label className={styleInput}>
@@ -145,8 +120,34 @@ const NewProduct = () => {
 						</select>
 						{erro && input.type == "" ? <p>Selecione o tipo do produto</p> : null}
 					</label>
+					<div className={styleInput}>
+						<Input
+							id="description"
+							title="Descrição do produto"
+							onChange={handleInput}
+							value={input.description}
+							placeholder="Sobre o produto"
+							max="30"
+						/>
+						{erro && input.description == "" ? (
+							<p>Digite sobre do produto</p>
+						) : null || (erro && input.description.length < 5) ? (
+							<p>Pelo menos 5 caracteres</p>
+						) : null}
+					</div>
+					<div className="d-flex flex-column align-items-center col-12">
+						<Input
+							id="file"
+							title="Imagem"
+							onChange={previewImage}
+							type="file"
+							className="col-12"
+							src={file ? URL.createObjectURL(file) : FileImg}
+						/>
+						<p>{erro && file == "" ? "Envie uma imagem" : null}</p>
+					</div>
 				</div>
-				<button className="col-3">Enviar</button>
+				<button className="col-6 col-md-3">Enviar</button>
 			</form>
 			<CardEdit />
 		</section>

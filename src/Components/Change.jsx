@@ -1,8 +1,9 @@
 //components
 import Input from "./input"
 import { array } from "../api/array"
-import { editProduct, Mask } from "../api/submitProduct"
+import { editProduct } from "../api/submitProduct"
 //hooks
+import { Mask, MaskChange } from "../api/mask"
 import { Link } from "react-router-dom"
 import { useState } from "react"
 //style
@@ -13,18 +14,8 @@ import { Alert } from "./Alert"
 const styleInput = "d-flex flex-column col-12 col-lg-5"
 
 const Change = (props) => {
-	const [loading, setLoading] = useState(false)
-	const [erro, setErro] = useState(false)
-	const [alert, setAlert] = useState(false)
 	const [file, setFile] = useState("")
 	const types = ["image/png", "image/jpeg"]
-	const [editInput, setEditInput] = useState({
-		setName: "",
-		setPrice: "",
-		setDescription: "",
-		setType: "",
-	})
-
 	const previewImage = (e) => {
 		const img = e.target.files[0]
 		if (img && types.includes(img.type)) {
@@ -34,6 +25,12 @@ const Change = (props) => {
 		}
 	}
 
+	const [editInput, setEditInput] = useState({
+		setName: "",
+		setPrice: "",
+		setDescription: "",
+		setType: "",
+	})
 	const handleInput = (e) => {
 		const { name, value } = e.target
 		setEditInput({ ...editInput, [name]: value })
@@ -41,6 +38,9 @@ const Change = (props) => {
 
 	// console.log(editInput)
 
+	const [erro, setErro] = useState(false)
+	const [alert, setAlert] = useState(false)
+	const [loading, setLoading] = useState(false)
 	const editProd = (e) => {
 		e.preventDefault()
 		if (
@@ -53,7 +53,7 @@ const Change = (props) => {
 			setAlert(true)
 			setTimeout(() => {
 				setAlert(false)
-			}, 5000)
+			}, 3000)
 		} else {
 			setErro(false)
 			setLoading(true)
@@ -127,17 +127,8 @@ const Change = (props) => {
 							title="Valor"
 							placeholder={props.item.price}
 							onChange={handleInput}
-							value={Mask({ mask: editInput.setPrice })}
+							value={MaskChange({ mask: editInput.setPrice, replace: "$1,$2" })}
 							max="8"
-						/>
-					</div>
-					<div className={styleInput}>
-						<Input
-							id="setDescription"
-							title="Descrição"
-							placeholder={props.item.description}
-							onChange={handleInput}
-							value={editInput.setDescription}
 						/>
 					</div>
 					<label data-label className={styleInput} htmlFor="select">
@@ -154,6 +145,15 @@ const Change = (props) => {
 							})}
 						</select>
 					</label>
+					<div className={styleInput}>
+						<Input
+							id="setDescription"
+							title="Descrição"
+							placeholder={props.item.description}
+							onChange={handleInput}
+							value={editInput.setDescription}
+						/>
+					</div>
 				</div>
 				<div className="col-12 d-flex justify-content-around">
 					<button className="col-4 col-lg-2">Atualizar</button>

@@ -1,7 +1,7 @@
 @import 'import'
 
 [data-navbar]
-    z-index: 100
+    z-index: 10
     h2
         font-family: $rubi
     [data-row]
@@ -37,31 +37,32 @@
     right: 1vh
     width: 5vh
     height: 5vh
+    z-index: 6
     cursor: pointer
     transition: .5s
     position: fixed
-    background: $black
+    background: $orange
     border-radius: 100%
+    border: solid 1px $black
     [data-line]
         position: absolute
         width: 3vh
         height: 1vh
-        background: $white
+        background: $black
         border-radius: 6vh
         transition: .5s
 [data-button='openO']
-    right: 32vh
+    background: $white
     [data-line='openO']
         transform: rotate(45deg)
     [data-line='openT']
         transform: rotate(-45deg)
 
-
 [data-nav]
+    z-index: 5
     position: fixed
     top: 0
-    right: -10vh
-    width: 10vh
+    right: -100vh
     background: $orange
     height: 100vh
     box-shadow: 0px 0px 8px #000
@@ -70,10 +71,10 @@
         margin: 0
         transition: .5s
         font-family: $silk
-        color: $black
+        color: $ice
         position: absolute
         right: -20vh
-        transition: .5s
+        transition: .3s
     img
         transition: .5s
         width: 6vh
@@ -82,7 +83,6 @@
 
 [data-nav='openO']
     right: 0vh
-    width: 30vh
     box-shadow: 0px 0px 20px #000
     border-radius: 10vh 0 0 10vh
     h6
@@ -96,8 +96,10 @@
         border-radius: 3vh 0
 
 [data-link]:hover h6
-    background: $black
     color: $ice
+    font-size: 20px
+    background: $black
 
 [data-link]:hover img
-    background: $orange
+    background: $white
+
