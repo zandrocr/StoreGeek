@@ -1,5 +1,11 @@
 //hook
-import { connectEmail, createEmail, EmailContextAuth, GoogleContextAuth, SingOut } from "../api/connectAccount"
+import {
+	connectEmail,
+	createEmail,
+	EmailContextAuth,
+	GoogleContextAuth,
+	SingOut,
+} from "../api/connectAccount"
 import { useState, useContext } from "react"
 //components
 import { Button } from "../Components/Button"
@@ -54,7 +60,7 @@ const User = (props) => {
 		connectEmail({ setEmail: setEmail, email: email })
 	}
 	let emailLog = JSON.parse(localStorage.getItem("@AuthLogginEmail:user"))
-	console.log(emailLog.email)
+	// console.log(emailLog.email)
 
 	return (
 		<section
@@ -62,7 +68,7 @@ const User = (props) => {
 			className={`col-12 d-flex justify-content-end ${
 				props.display == true ? "position-fixed" : "d-none"
 			} `}>
-			{!emailLog.email ? (
+			{!signed ? (
 				<div className="user col-12 col-lg-5 d-flex flex-column align-items-center">
 					<h2>Login </h2>
 					<div className="camp col-11">
