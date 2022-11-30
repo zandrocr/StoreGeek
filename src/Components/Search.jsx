@@ -25,10 +25,10 @@ const Search = (props) => {
 	return (
 		<section
 			data-search={props.state == true ? "open" : ""}
-			className="col-12 col-md-6 d-flex flex-column justify-content-center position-fixed position-md-absolute">
+			className="col-12 col-lg-6 d-flex flex-column justify-content-center position-fixed position-md-absolute">
 			<div className="d-flex justify-content-center">
 				<Input onChange={filt} value={filter} className="col-12" />
-				{filter.length >= 1 || largura <= 767 ? <Button click={clos} scr={x} /> : null}
+				{filter.length >= 1 || largura <= 768 ? <Button click={clos} scr={x} /> : null}
 			</div>
 
 			{filter.length >= 1 ? (

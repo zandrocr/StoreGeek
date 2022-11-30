@@ -1,6 +1,6 @@
 //components
 import Input from "./input"
-import { array } from "../api/array"
+import { array } from "../api/list"
 import { editProduct } from "../api/submitProduct"
 //hooks
 import { Mask, MaskChange } from "../api/mask"
@@ -31,6 +31,7 @@ const Change = (props) => {
 		setDescription: "",
 		setType: "",
 	})
+	
 	const handleInput = (e) => {
 		const { name, value } = e.target
 		setEditInput({ ...editInput, [name]: value })

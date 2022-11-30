@@ -1,7 +1,9 @@
 import axios from "axios"
 import { initializeApp } from "firebase/app"
+// import firebase from "firebase/app"
 import { getStorage } from "firebase/storage"
-import { collection, getFirestore } from "firebase/firestore/lite"
+import { getFirestore } from "firebase/firestore/lite"
+import { GoogleAuthProvider, getAuth } from "firebase/auth"
 
 const firebaseConfig = {
 	apiKey: "AIzaSyC2DZjl09Q7xEq8yvL3Xv5Y_gl2q3AxCN8",
@@ -15,9 +17,14 @@ const firebaseConfig = {
 }
 
 const app = initializeApp(firebaseConfig)
+
+export const auth = getAuth(app)
+
+export const provider = new GoogleAuthProvider()
+
 export const db = getFirestore(app)
+
 export const storage = getStorage(app)
-// export const collectionRef = collection(db, "Caneca")
 
 export const Api = axios.create({
 	baseURL: "http://localhost:5000",

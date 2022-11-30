@@ -1,6 +1,6 @@
 import { storage, db } from "./api"
-import { uploadBytesResumable, getDownloadURL, deleteObject } from "firebase/storage"
-import { addDoc, serverTimestamp, setDoc, collection, getDocs } from "firebase/firestore/lite"
+import { uploadBytesResumable, getDownloadURL, deleteObject, ref } from "firebase/storage"
+import { addDoc, serverTimestamp, setDoc, collection, getDocs, doc } from "firebase/firestore/lite"
 
 export const submitProduct = async (props) => {
 	const storageRef = ref(storage, `/images/${props.setType}/${props.nameFile}`)
@@ -128,20 +128,6 @@ export const getDoc = async (props) => {
 		}))
 	)
 	// console.log(data)
-}
-
-import { query, where, limit, startAt, onSnapshot } from "firebase/firestore"
-import { async } from "@firebase/util"
-// , "5kqSpIeGW50Ww6oqt4zU"
-export const Pages = async (props) => {
-	const data = await getDocs(collection(db, props.colle))
-	props.set(
-		data.docs.map((doc) => ({
-			...doc.data(),
-			id: doc.id,
-		}))
-	)
-	// console.log(q)
 }
 
 export const Mask = (props) => {

@@ -3,8 +3,8 @@ import { useEffect, useState } from "react"
 import { delProduct } from "../api/deletProduct"
 import { getDoc, MaskChange } from "../api/submitProduct"
 //apiInte
-import { array } from "../api/array"
-import { Button } from "./Button"
+import { array } from "../api/list"
+import Pagination from "./Pagination"
 //ouht
 import { Link } from "react-router-dom"
 import Change from "./Change"
@@ -47,6 +47,17 @@ const CardEdit = () => {
 		setFilter(product.filter((name) => name.name.toLowerCase().includes(busca.toLowerCase())))
 	}, [busca, product])
 
+	const [page, setPage] = useState(1)
+	const [post, setPost] = useState(12)
+	const lastPage = page * post
+	const firstPost = lastPage - post
+	const apiPage = filter.slice(firstPost, lastPage)
+
+	function click() {
+		window.scrollTo({ top: 665 })
+	}
+
+	// console.log(window.scrollY)
 	return (
 		<section className="carEdit col-12 d-flex flex-column align-items-center">
 			{loading == true ? <Loading /> : null}
@@ -78,7 +89,7 @@ const CardEdit = () => {
 				{filter == "" ? (
 					<h3>Nenhum resultado encontrado</h3>
 				) : (
-					filter.map((item) => {
+					apiPage.map((item) => {
 						return (
 							<div
 								data-card
@@ -132,6 +143,15 @@ const CardEdit = () => {
 						)
 					})
 				)}
+			</div>
+			<div className="col-12">
+				<Pagination
+					lenght={product.length}
+					page={page}
+					setPage={setPage}
+					click={click}
+					post={post}
+				/>
 			</div>
 		</section>
 	)

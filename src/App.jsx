@@ -11,30 +11,34 @@ import Funko from "./Pages/Funko"
 import Cushion from "./Pages/Cushion"
 import Shirt from "./Pages/Shirt"
 import NewProduct from "./Pages/NewProduct"
-import Log from "./Pages/Log"
+import FinishBuy from "./Pages/FinishBuy"
 //componet
 import Navbar from "./Components/Navbar"
-
-const Private = ({ Item }) => {
-	const signed = true
-	return signed > 0 ? <Item /> : <Log />
-}
+import Footer from "./Components/Footer"
+import { ConnectAccount } from "./api/connectAccount"
+import { PrivateRoute } from "./Pages/PrivateRoute"
 
 function App() {
 	return (
-		<BrowserRouter>
-			<Routes>
-				<Route exact path="/" element={<Home />} />
-				<Route path="/painting" element={<Painting />} />
-				<Route path="/mug" element={<Mug />} />
-				<Route path="/funko" element={<Funko />} />
-				<Route path="/cushion" element={<Cushion />} />
-				<Route path="/shirt" element={<Shirt />} />
-				<Route path="/newProduct" element={<NewProduct />} />
-				<Route path="/newProduct/:id" element={<NewProduct />} />
-			</Routes>
-			<Navbar />
-		</BrowserRouter>
+		<ConnectAccount>
+			<BrowserRouter>
+				<Routes>
+					<Route exact path="/" element={<Home />} />
+					<Route path="/painting" element={<Painting />} />
+					<Route path="/mug" element={<Mug />} />
+					<Route path="/funko" element={<Funko />} />
+					<Route path="/cushion" element={<Cushion />} />
+					<Route path="/shirt" element={<Shirt />} />
+					<Route path="/finishbuy" element={<PrivateRoute />}>
+						<Route path="/finishbuy" element={<FinishBuy />} />
+					</Route>
+					<Route path="/newProduct" element={<NewProduct />} />
+					<Route path="/newProduct/:id" element={<NewProduct />} />
+				</Routes>
+				<Navbar />
+				<Footer />
+			</BrowserRouter>
+		</ConnectAccount>
 	)
 }
 

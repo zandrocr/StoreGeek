@@ -2,13 +2,35 @@
 
 [data-home]
     [data-subhome]
-        height: 100vh
-        background: $ice
+        height: max-content
+        background: $black
         border-radius: 0 0 5vh 5vh
-        box-shadow: 0 0px 10px 3px $black
+        box-shadow: 0 0px 10px 3px $ice
+
+        img
+            height: 50vh
+            border-radius: 5vh
 
         [data-cel]
-            height: 85vh
             margin-top: 8vh
-            background: $black
+            // background: $black
+
+    .carousel-inner
+        margin-bottom: 5vh
+
+    .carousel-indicators
+        z-index: 1
+
+    .scroll
+        margin-top: 10vh
+
+@media screen and ( max-width: 768px )
+    [data-home]
+        [data-card]
+            width: 40vh
+
+@media screen and ( min-width: 768px )
+    [data-home]
+        [data-card]
+            width: 35vh
 

@@ -10,7 +10,7 @@ import "../css/newProduct.css"
 import FileImg from "../img/file.png"
 import Loading from "../Components/Loading"
 import CardEdit from "../Components/CardEdit"
-import { array } from "../api/array"
+import { array } from "../api/list"
 
 const styleInput = "d-flex flex-column col-12 col-lg-5"
 

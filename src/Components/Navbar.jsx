@@ -2,13 +2,15 @@
 import "../css/navbar.css"
 import cart from "../img/cart.png"
 import loupe from "../img/loupe.png"
-import user from "../img/user.png"
+import defaul from "../img/user.png"
 //hook
 import { Link } from "react-router-dom"
-import { array } from "../api/array"
-import { useEffect, useState } from "react"
+import { array } from "../api/list"
+import { useContext, useEffect, useState } from "react"
 import { Button } from "./Button"
 import Search from "./Search"
+import User from "../Pages/User"
+import { GoogleContextAuth } from "../api/connectAccount"
 
 const Navbar = () => {
 	const [click, setClick] = useState(false)
@@ -26,9 +28,7 @@ const Navbar = () => {
 	const [view, setView] = useState(false)
 	useEffect(() => {
 		function changeBackground() {
-			if (window.scrollY >= 200) {
-				setView(true)
-			} else setView(false)
+			window.scrollY >= 50 ? setView(true) : setView(false)
 		}
 		window.addEventListener("scroll", changeBackground)
 	}, [])
@@ -41,8 +41,16 @@ const Navbar = () => {
 		setBusca(!busca)
 	}
 
+	const [display, setDisplay] = useState(false)
+	function displayClik() {
+		setDisplay(!display)
+	}
+
+	const { user } = useContext(GoogleContextAuth)
+	let googleLog = JSON.parse(user)
+
 	return (
-		<section data-navbar>
+		<section data-navbar className="col-12">
 			<div data-row={viw} className="col-12 d-flex">
 				<Link to="/" data-logo className="d-flex align-items-center">
 					<h2 data-text={viw}>Ani</h2>
@@ -51,14 +59,21 @@ const Navbar = () => {
 				<Search state={busca} set={setBusca} />
 				<Button
 					scr={loupe}
-					position="position-absolute d-md-none"
+					position="position-absolute d-lg-none"
 					data="loupe"
 					click={openBusca}
 				/>
-				<Button scr={cart} position="position-absolute" data="cart" />
-				<Button scr={user} position="position-absolute" data="user" />
+				<Link to="/finishbuy">
+					<Button scr={cart} position="position-absolute" data="cart" />
+				</Link>
+				<Button
+					scr={googleLog ? googleLog.photoURL : defaul}
+					position="position-absolute iconUser"
+					data="user"
+					click={displayClik}
+				/>
 			</div>
-
+			 <User display={display} state={display} set={setDisplay} />
 			<div
 				data-button={openO}
 				className="d-flex flex-column align-items-center justify-content-center col-12"

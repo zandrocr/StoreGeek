@@ -1,9 +1,19 @@
 import Carousel from "react-bootstrap/Carousel"
 
 function Carous(props) {
+	let interval = 100
+
+	function inter() {
+		if (props.interva) {
+			return props.interva
+		} else {
+			return 3000
+		}
+	}
+
 	return (
-		<Carousel fade>
-			<Carousel.Item interval={3000}>
+		<Carousel>
+			<Carousel.Item interval={inter()}>
 				<div className="d-flex justify-content-center">
 					<img className="d-block col-12" src={props.imgO} alt="First slide" />
 				</div>
@@ -12,7 +22,7 @@ function Carous(props) {
 					<p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
 				</Carousel.Caption> */}
 			</Carousel.Item>
-			<Carousel.Item interval={3000}>
+			<Carousel.Item interval={inter()}>
 				<div className="d-flex justify-content-center">
 					<img className="d-block w-100" src={props.imgTw} alt="Second slide" />
 				</div>
@@ -22,7 +32,7 @@ function Carous(props) {
 					<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
 				</Carousel.Caption> */}
 			</Carousel.Item>
-			<Carousel.Item interval={3000}>
+			<Carousel.Item interval={inter()}>
 				<div className="d-flex justify-content-center">
 					<img className="d-block w-100" src={props.imgT} alt="Third slide" />
 				</div>

@@ -4,6 +4,8 @@ import mug from "../img/mug.png"
 import funko from "../img/funko.png"
 import cushion from "../img/cushion.png"
 import shirt from "../img/shirt.png"
+//css
+import '../css/list.css'
 //array full site
 export const array = [
 	{ type: "Quadro", img: painting, link: "painting" },

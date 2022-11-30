@@ -14,7 +14,6 @@ const Filter = (props) => {
 		setList(
 			product.filter((name) => name.name.toLowerCase().includes(props.filt.toLowerCase()))
 		)
-		console.log(list)
 	}, [props.filt, product])
 
 	return (

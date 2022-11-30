@@ -1,19 +1,20 @@
 @import 'import'
 
 [data-navbar]
-    z-index: 10
-    h2
-        font-family: $rubi
+    top: 0
+    z-index: 5
+    position: fixed
+
     [data-row]
-        position: fixed
-        top: 0
         height: 7vh
         transition: 1s
+
     [data-row='openO']
         box-shadow: 0px 0px 8px $black
         background: $ice
 
 [data-logo]
+    font-family: $rubi
     margin-left: 1vh
 
 [data-text]
@@ -37,7 +38,7 @@
     right: 1vh
     width: 5vh
     height: 5vh
-    z-index: 6
+    z-index: 10
     cursor: pointer
     transition: .5s
     position: fixed
@@ -59,7 +60,7 @@
         transform: rotate(-45deg)
 
 [data-nav]
-    z-index: 5
+    z-index: 2
     position: fixed
     top: 0
     right: -100vh
@@ -76,7 +77,6 @@
         right: -20vh
         transition: .3s
     img
-        transition: .5s
         width: 6vh
         padding: 1vh
         transition: .3s
