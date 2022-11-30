@@ -35,7 +35,7 @@ function App() {
 					<Route path="/newProduct" element={<NewProduct />} />
 					<Route path="/newProduct/:id" element={<NewProduct />} />
 				</Routes>
-				<Navbar />
+				{/* <Navbar /> */}
 				<Footer />
 			</BrowserRouter>
 		</ConnectAccount>
